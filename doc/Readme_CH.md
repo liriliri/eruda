@@ -44,7 +44,7 @@ npm install eruda --save
 Js文件对于移动端来说略重（gzip后大概80kb）。建议通过url参数来控制是否加载调试器，比如：
 
 ```javascript
-(function () {
+;(function () {
     var src = 'node_modules/eruda/eruda.min.js';
     if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return;
     document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
