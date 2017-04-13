@@ -14,6 +14,7 @@
     transform: translateZ(0);
     font-family: $font-family;
     font-size: $font-size;
+    direction: ltr;
     * {
         box-sizing: border-box;
         pointer-events: all;
