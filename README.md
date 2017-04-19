@@ -6,6 +6,8 @@
 
 # Eruda
 
+[![Join the chat at https://gitter.im/liriliri/eruda](https://badges.gitter.im/liriliri/eruda.svg)](https://gitter.im/liriliri/eruda?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![NPM version][npm-image]][npm-url]
 [![Build status][travis-image]][travis-url]
 [![License][license-image]][npm-url]
