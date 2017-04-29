@@ -53,12 +53,17 @@ module.exports = {
                 test: /\.hbs$/,
                 loader: nodeModDir + 'handlebars-loader/index.js',
                 options: {
-                    runtime: nodeModDir + 'handlebars/dist/handlebars.runtime.js'
+                    runtime: nodeModDir + 'handlebars/dist/handlebars.runtime.js',
+                    helperDirs:path.resolve(__dirname, '../','src/lib/hbsHelper')
                 }
             },
             {
                 test: /\.json$/,
                 loader: 'json-loader'
+            },
+            {
+                test: /\.(gif|jpg|png|woff|woff2|svg|eot|ttf)\??.*$/, 
+                loader: 'url-loader?limit=50000&name=[path][name].[ext]'
             }
         ]
     },

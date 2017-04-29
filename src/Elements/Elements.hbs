@@ -18,76 +18,85 @@
         {{/each}}
     </ul>
 {{/if}}
-<div class="eruda-attributes eruda-section">
+<div class="eruda-attributes eruda-section hook-eruda-attributes">
     <h2>Attributes</h2>
+    {{#HBSisTrue UIConfig.attributes}}
     <div class="eruda-table-wrapper">
-        <table>
-            <tbody>
-            {{#if attributes}}
-                {{#each attributes}}
-                    <tr>
-                        <td>{{name}}</td>
-                        <td>{{{value}}}</td>
-                    </tr>
-                {{/each}}
-            {{else}}
-                <tr>
-                    <td>Empty</td>
-                </tr>
-            {{/if}}
-            </tbody>
-        </table>
-    </div>
-</div>
-{{#if computedStyle}}
-    <div class="eruda-computed-style eruda-section">
-        <h2 class="toggle-all-computed-style eruda-active-effect">Computed Style</h2>
-        <div class="eruda-table-wrapper">
             <table>
                 <tbody>
-                {{#each computedStyle}}
+                {{#if attributes}}
+                    {{#each attributes}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td>{{{value}}}</td>
+                        </tr>
+                    {{/each}}
+                {{else}}
                     <tr>
-                        <td class="eruda-key">{{@key}}</td>
-                        <td>{{{.}}}</td>
+                        <td>Empty</td>
                     </tr>
-                {{/each}}
+                {{/if}}
                 </tbody>
             </table>
         </div>
+    {{/HBSisTrue}}
+</div>
+{{#if computedStyle}}
+    <div class="eruda-computed-style eruda-section hook-eruda-computed-style">
+        <h2 class="eruda-active-effect">Computed Style</h2>
+        {{#HBSisTrue UIConfig.computedStyle}}
+            <div class="eruda-innerTrigger toggle-all-computed-style">Touch Show All Computed Style </div>
+            <div class="eruda-table-wrapper">
+                <table>
+                    <tbody>
+                    {{#each computedStyle}}
+                        <tr>
+                            <td class="eruda-key">{{@key}}</td>
+                            <td>{{{.}}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        {{/HBSisTrue}}
     </div>
 {{/if}}
 {{#if styles}}
-    <div class="eruda-styles eruda-section">
+    <div class="eruda-styles eruda-section hook-eruda-styles">
         <h2>Styles</h2>
-        <div class="eruda-style-wrapper">
-            {{#each styles}}
-                <div class="eruda-style-rules">
-                    <div>{{selectorText}} {</div>
-                    {{#each style}}
-                        <div class="eruda-rule">
-                            <span>{{@key}}</span>: {{{.}}};
-                        </div>
-                    {{/each}}
-                    <div>}</div>
-                </div>
-            {{/each}}
-        </div>
+        {{#HBSisTrue UIConfig.styles}}
+            <div class="eruda-style-wrapper">
+                {{#each styles}}
+                    <div class="eruda-style-rules">
+                        <div>{{selectorText}} {</div>
+                        {{#each style}}
+                            <div class="eruda-rule">
+                                <span>{{@key}}</span>: {{{.}}};
+                            </div>
+                        {{/each}}
+                        <div>}</div>
+                    </div>
+                {{/each}}
+            </div>
+        {{/HBSisTrue}}
     </div>
 {{/if}}
 {{#if listeners}}
-    <div class="eruda-listeners eruda-section">
+    <div class="eruda-listeners eruda-section hook-eruda-listeners">
         <h2>Event Listeners</h2>
-        <div class="eruda-listener-wrapper">
-            {{#each listeners}}
-               <div class="eruda-listener">
-                   <div class="eruda-listener-type">{{@key}}</div>
-                   <ul class="eruda-listener-content">
-                       {{#each .}}
-                           <li class="{{#if useCapture}}eruda-capture{{/if}}">{{listenerStr}}</li>
-                       {{/each}}
-                   </ul>
-               </div>
-            {{/each}}
-        </div>
+        {{#HBSisTrue UIConfig.listeners}}
+            <div class="eruda-listener-wrapper">
+                {{#each listeners}}
+                   <div class="eruda-listener">
+                       <div class="eruda-listener-type">{{@key}}</div>
+                       <ul class="eruda-listener-content">
+                           {{#each .}}
+                               <li class="{{#if useCapture}}eruda-capture{{/if}}">{{listenerStr}}</li>
+                           {{/each}}
+                       </ul>
+                   </div>
+                {{/each}}
+            </div>
+        {{/HBSisTrue}}
     </div>
 {{/if}}
