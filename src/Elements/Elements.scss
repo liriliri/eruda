@@ -123,6 +123,13 @@
                 @include overflow-auto(y);
                 max-height: 200px;
             }
+            .innerTrigger{
+                height: 30px;
+                text-indent: 10px;
+                line-height: 30px;
+                color:#ffffff;
+                background-color:#cccccc;
+            }
             table {
                 td {
                     padding: 5px 10px;

@@ -154,7 +154,11 @@ export default class Elements extends Tool
             while (idx-- && el.parentNode) el = el.parentNode;
 
             !isElExist(el) ? self._render() : self.set(el);
-        }).on('click', '.toggle-all-computed-style', () => this._toggleAllComputedStyle());
+        }).on('click', '.toggle-all-computed-style', () => {
+            this._toggleAllComputedStyle()
+        }).on('click','.eruda-section h2',(e)=>{
+            this._toggleElementInstpctor(e.curTarget.parentNode.className)
+        });
 
         let $bottomBar = this._$el.find('.eruda-bottom-bar');
 
@@ -164,6 +168,20 @@ export default class Elements extends Tool
                   .on('click', '.eruda-reset', () => this.set(this._htmlEl));
 
         select.on('select', target => this.set(target));
+    }
+    _toggleElementInstpctor(targetClassName){
+        /**
+         * toggle element inspector
+         * @type {[type]}
+         */
+        let cfg = this.config;
+        let UIConfig = cfg.get('UIConfig');
+        targetClassName.indexOf('hook-eruda-attributes') != -1 ? cfg.set('UIConfig',Object.assign(UIConfig,UIConfig.attributes = !UIConfig.attributes)) : null;
+        targetClassName.indexOf('hook-eruda-computed-style') != -1 ? cfg.set('UIConfig',Object.assign(UIConfig,UIConfig.computedStyle = !UIConfig.computedStyle)) : null;
+        targetClassName.indexOf('hook-eruda-styles') != -1 ? cfg.set('UIConfig',Object.assign(UIConfig,UIConfig.styles = !UIConfig.styles)) : null;
+        targetClassName.indexOf('hook-eruda-listeners') != -1 ? cfg.set('UIConfig',Object.assign(UIConfig,UIConfig.listeners = !UIConfig.listeners)) : null;
+
+        this._render();
     }
     _toggleAllComputedStyle()
     {
@@ -236,6 +254,10 @@ export default class Elements extends Tool
             cssStore = this._curCssStore;
 
         let {className, id, attributes, tagName} = el;
+
+        let cfg = this.config;
+
+        ret.UIConfig = cfg.get('UIConfig');
 
         ret.parents = getParents(el);
         ret.children = formatChildNodes(el.childNodes);
@@ -322,6 +344,13 @@ export default class Elements extends Tool
             overrideEventTarget: true,
             observeElement: true
         }));
+
+        cfg.set('UIConfig',{
+            computedStyle:true,
+            styles:true,
+            listeners:true,
+            attributes:true,
+        });
 
         if (cfg.get('overrideEventTarget')) this.overrideEventTarget();
         if (cfg.get('observeElement')) this._toggleObserver(true);
