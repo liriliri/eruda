@@ -120,12 +120,19 @@ export default class Resources extends Tool
         let cookie = document.cookie;
         if (util.trim(cookie) !== '')
         {
-            util.each(document.cookie.split(';'), function (val)
+            util.each(document.cookie.split(';'), function (val, t)
             {
                 val = val.split('=');
+                try
+                {
+                    t = decodeURIComponent(val[1]);
+                } catch(e)
+                {
+                    t = val[1];
+                }
                 cookieData.push({
                     key: util.trim(val[0]),
-                    val: decodeURIComponent(val[1])
+                    val: t
                 });
             });
         }
