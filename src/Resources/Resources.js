@@ -362,7 +362,7 @@ export default class Resources extends Tool
             mutations.forEach(mutation => 
             {
                 mutation.addedNodes.forEach(node => {
-                    if ( node.tagName.toLocaleLowerCase() === 'script' && node.src !== '')
+                    if (/^script$/i.test(node.tagName) && node.src !== '')
                     {
                         this._scriptData.push(node.src);
                         this._scriptData = util.unique(this._scriptData);
