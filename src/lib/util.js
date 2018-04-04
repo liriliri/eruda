@@ -1438,7 +1438,7 @@ export var fullUrl = _.fullUrl = (function ()
 
     function exports(url)
     {
-        if (startWith(url, 'http')) return url;
+        if (startWith(url, 'http') || startWith(url, '//')) return url;
 
         if (!startWith(url, '/')) url = '/' + url;
 
