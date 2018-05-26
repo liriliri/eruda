@@ -46,14 +46,8 @@ export default class CssStore
 
         each(document.styleSheets, (styleSheet) =>
         {
-            try 
-            {
-                // Started with version 64, Chrome does not allow cross origin script to access this property.
-                if (!styleSheet.cssRules) return;
-            } catch (e) 
-            {
-                return;
-            }
+            // Started with version 64, Chrome does not allow cross origin script to access this property.
+            if (!styleSheet.hasOwnProperty('cssRules')) return;
 
             each(styleSheet.cssRules, (cssRule) =>
             {
