@@ -1467,11 +1467,18 @@ export var fullUrl = _.fullUrl = (function ()
      */
 
     let origin = window.location.origin;
+    let protocol = window.location.protocol;
 
     function exports(url)
     {
         if (startWith(url, 'http')) return url;
 
+        // fix bug:           ajax url: //domain.com/api/getbook
+        // but in eruda Network view:   http://domain.com//domain.com/api/getbook
+        
+        // ajax url use "//" can auto switch protocol (http/https)
+        if (startWith(url, '//')) return protocol + url;
+        
         if (!startWith(url, '/')) url = '/' + url;
 
         return origin + url;
