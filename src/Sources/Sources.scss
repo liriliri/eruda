@@ -86,6 +86,7 @@
             td {
               font-size: $font-size-s;
               padding: 5px 10px;
+              word-break: break-all;
             }
             .key {
               white-space: nowrap;

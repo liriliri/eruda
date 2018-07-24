@@ -46,7 +46,9 @@ export default class Network extends Tool {
     let winXhrProto = window.XMLHttpRequest.prototype
 
     let origSend = (this._origSend = winXhrProto.send),
-      origOpen = (this._origOpen = winXhrProto.open)
+      origOpen = (this._origOpen = winXhrProto.open),
+      origSetRequestHeader = (this._origSetRequestHeader =
+        winXhrProto.setRequestHeader)
 
     let self = this
 
@@ -75,6 +77,18 @@ export default class Network extends Tool {
       if (req) req.handleSend(data)
 
       origSend.apply(this, arguments)
+    }
+
+    winXhrProto.setRequestHeader = function() {
+      let req = this.erudaRequest
+      if (!req._headers) {
+        req._headers = {}
+      }
+      let key = arguments[0]
+      let val = arguments[1]
+      req._headers[key] = val
+
+      origSetRequestHeader.apply(this, arguments)
     }
   }
   restoreXhr() {
@@ -119,6 +133,7 @@ export default class Network extends Tool {
       startTime: now(),
       time: 0,
       resHeaders: {},
+      reqHeaders: {},
       resTxt: '',
       done: false
     })
@@ -161,7 +176,8 @@ export default class Network extends Tool {
           resTxt: data.resTxt,
           type: data.type,
           subType: data.subType,
-          resHeaders: data.resHeaders
+          resHeaders: data.resHeaders,
+          reqHeaders: data.reqHeaders
         })
       })
       .on('click', '.eruda-clear-request', () => this.clear())

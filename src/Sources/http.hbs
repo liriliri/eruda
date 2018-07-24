@@ -4,6 +4,23 @@
         <pre class="eruda-data">{{data}}</pre>
     {{/if}}
     <div class="eruda-section">
+        <h2>Request Headers</h2>
+        <table class="eruda-headers">
+            <tbody>
+                {{#if reqHeaders}}
+                    {{#each reqHeaders}}
+                        <tr>
+                            <td class="eruda-key">{{@key}}</td>
+                            <td>{{.}}</td>
+                        </tr>
+                    {{/each}}
+                {{else}}
+                    <tr>
+                        <td>Empty</td>
+                    </tr>
+                {{/if}}
+            </tbody>
+        </table>
         <h2>Response Headers</h2>
         <table class="eruda-headers">
             <tbody>
