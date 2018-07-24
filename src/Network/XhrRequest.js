@@ -43,7 +43,7 @@ export default class XhrRequest extends Emitter {
       size: getSize(xhr, true, this._url),
       time: now(),
       resHeaders: getHeaders(xhr),
-      reqHeaders: (xhr.erudaRequest && xhr.erudaRequest._headers) || {}
+      reqHeaders: (xhr.erudaRequest && xhr.erudaRequest._headers) || null
     })
   }
   handleDone() {

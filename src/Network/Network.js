@@ -86,7 +86,9 @@ export default class Network extends Tool {
       }
       let key = arguments[0]
       let val = arguments[1]
-      req._headers[key] = val
+      if (key && val) {
+        req._headers[key] = val
+      }
 
       origSetRequestHeader.apply(this, arguments)
     }
