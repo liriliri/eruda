@@ -149,6 +149,7 @@ module.exports = {
   _initContainer(el, useShadowDom) {
     if (!el) {
       el = document.createElement('div')
+      el.setAttribute('growing-ignore', true)
       document.documentElement.appendChild(el)
     }
 
