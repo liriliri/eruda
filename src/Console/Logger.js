@@ -84,6 +84,21 @@ export default class Logger extends Emitter {
       return this.insert('error', args)
     }
   }
+  groupCollapsed(...args) {
+    this.insert('groupCollapsed', args)
+
+    return this
+  }
+  group(...args) {
+    this.insert('group', args)
+
+    return this
+  }
+  groupEnd(...args){
+    this.insert('groupEnd', args)
+
+    return this
+  }
   log(...args) {
     this.insert('log', args)
 
@@ -180,15 +195,39 @@ export default class Logger extends Emitter {
   }
   render() {
     let html = '',
-      logs = this._logs
+      logs = this._logs,
+      stack = 0
 
     logs = this._filterLogs(logs)
 
     for (let i = 0, len = logs.length; i < len; i++) {
       html += logs[i].formattedMsg
+      if (logs[i].type === 'group' || logs[i].type === 'groupCollapsed') {
+        html += `<ul class="eruda-logs eruda-group-container ${logs[i].type === 'groupCollapsed' ? 'eruda-hidden': ''}" >`
+        stack ++
+      }
+      if (logs[i].type === 'groupEnd') {
+        html += '</ul>'
+        stack --
+      }
     }
 
-    this._$el.html(html)
+    for (let i = 0;i < stack; i++) {
+      html += '</ul>'
+    }
+    this._container._$logs.html(html)
+    this._$el = this._container._$logs
+    for (let i = 0;i < stack; i++) {
+      const children = this._$el[0].children
+      for (let j = children.length - 1; j >= 0; j --) {
+        const child = $(children[j])
+        if (child.hasClass('eruda-logs')) {
+          this._$el = child
+          break
+        }
+      }
+    }
+
     this.scrollToBottom()
 
     return this
@@ -211,6 +250,7 @@ export default class Logger extends Emitter {
     const lastLog = this._lastLog
     if (
       log.type !== 'html' &&
+      log.type !== 'groupEnd' &&
       lastLog.type === log.type &&
       lastLog.value === log.value &&
       !log.src &&
@@ -240,9 +280,21 @@ export default class Logger extends Emitter {
       logs.shift()
     }
 
+    if(log.type === 'groupEnd') {
+      this._$el = this._$el.parent()
+      return
+    }
+
     if (this._filterLog(log) && this._container.active) {
       $el.append(log.formattedMsg)
     }
+
+    if(log.type === 'group' || log.type === 'groupCollapsed') {
+      $el.append(`<ul class="eruda-logs eruda-group-container ${log.type === 'groupCollapsed' ? 'eruda-hidden': ''}" ></ul>`)
+      this._$el = $el.find('ul:last-child')
+    }
+
+
 
     this.emit('insert', log)
 

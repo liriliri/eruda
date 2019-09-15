@@ -25,7 +25,8 @@ import {
   isEmpty,
   clone,
   noop,
-  highlight
+  highlight,
+  $
 } from '../lib/util'
 
 export default class Log {
@@ -117,6 +118,14 @@ export default class Log {
     let err
 
     switch (type) {
+      case 'groupCollapsed':
+        msg = formatMsg(args)
+        icon = 'groupCollapsed'
+        break
+      case 'group':
+        msg = formatMsg(args)
+        icon = 'group'
+        break
       case 'log':
         msg = formatMsg(args)
         break
@@ -200,6 +209,21 @@ export default class Log {
       case 'error':
         $el.find('.eruda-stack').toggleClass('eruda-hidden')
         break
+      case 'groupCollapsed':
+      case 'group': {
+        const groupIcon = $el.find('.eruda-icon')
+        if (groupIcon.hasClass('eruda-icon-group')) {
+          groupIcon.rmClass('eruda-icon-group')
+          groupIcon.addClass('eruda-icon-groupCollapsed')
+          $($el.parent()[0].nextSibling).addClass('eruda-hidden')
+        } else {
+          groupIcon.addClass('eruda-icon-group')
+          groupIcon.rmClass('eruda-icon-groupCollapsed')
+          $($el.parent()[0].nextSibling).rmClass('eruda-hidden')
+        }
+        break
+      }
+
     }
 
     return 'handled'

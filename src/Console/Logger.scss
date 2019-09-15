@@ -126,6 +126,22 @@
           }
         }
       }
+      .group-container {
+        margin-left: 15px;
+        border-left: 1px solid #000;
+        height: auto;
+        position: relative;
+        padding-top: 0;
+      }
+      .group-container:before{
+        content: '';
+        width: 2px;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        border-bottom: 1px solid #000;
+        z-index: 1000;
+      }
     }
   }
 }

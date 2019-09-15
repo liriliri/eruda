@@ -45,3 +45,7 @@
 
 .icon-Fill:before { content: "\e6ce"; }
 
+.icon-group:before {content: "\e7d8";}
+
+.icon-groupCollapsed:before {content: "\e7d7";}
+
