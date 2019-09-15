@@ -22,6 +22,7 @@ export default class Logger extends Emitter {
     super()
     this._style = evalCss(require('./Logger.scss'))
 
+    this._$originEl = $el
     this._$el = $el
     this._container = container
     this._logs = []
@@ -196,7 +197,7 @@ export default class Logger extends Emitter {
   render() {
     let html = '',
       logs = this._logs,
-      stack = 0
+      groupStack = 0
 
     logs = this._filterLogs(logs)
 
@@ -204,20 +205,22 @@ export default class Logger extends Emitter {
       html += logs[i].formattedMsg
       if (logs[i].type === 'group' || logs[i].type === 'groupCollapsed') {
         html += `<ul class="eruda-logs eruda-group-container ${logs[i].type === 'groupCollapsed' ? 'eruda-hidden': ''}" >`
-        stack ++
+        groupStack ++
       }
       if (logs[i].type === 'groupEnd') {
         html += '</ul>'
-        stack --
+        groupStack --
       }
     }
 
-    for (let i = 0;i < stack; i++) {
+    for (let i = 0;i < groupStack; i++) {
       html += '</ul>'
     }
-    this._container._$logs.html(html)
-    this._$el = this._container._$logs
-    for (let i = 0;i < stack; i++) {
+
+    this._$el = this._$originEl
+    this._$el.html(html)
+
+    for (let i = 0;i < groupStack; i++) {
       const children = this._$el[0].children
       for (let j = children.length - 1; j >= 0; j --) {
         const child = $(children[j])
@@ -273,11 +276,31 @@ export default class Logger extends Emitter {
 
     if (this._maxNum !== 'infinite' && logs.length > this._maxNum) {
       const firstLog = logs[0]
-      const $container = $el.find(`div[data-id="${firstLog.id}"]`)
+      const $container = this._$originEl.find(`div[data-id="${firstLog.id}"]`)
+
+      logs.shift()
       if ($container.length > 0) {
+        if (firstLog.type === 'group' || firstLog.type === 'groupCollapsed') {
+          $($container.parent()[0].nextElementSibling).remove()
+          let groupStack = 1
+          for(let i = 0; i < logs.length; i++) {
+            if (logs[i].type === 'group' || logs[i].type === 'groupCollapsed') {
+              groupStack ++
+            }
+            if (logs[i].type === 'groupEnd') {
+              groupStack --
+            }
+            logs.shift()
+            if (groupStack === 0) {
+              break
+            }
+          }
+          if (groupStack !== 0) {
+            this._$el = this._$originEl
+          }
+        }
         $container.parent().remove()
       }
-      logs.shift()
     }
 
     if(log.type === 'groupEnd') {
@@ -303,7 +326,7 @@ export default class Logger extends Emitter {
     return this
   }
   scrollToBottom() {
-    const el = this._$el.get(0)
+    const el = this._$originEl.get(0)
 
     el.scrollTop = el.scrollHeight - el.offsetHeight
   }

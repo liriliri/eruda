@@ -45,7 +45,7 @@ export default class Console extends Tool {
       }
 
       winConsole[name] = (...args) => {
-        if (args.length > 0) {
+        if (args.length > 0 || name === 'groupEnd') {
           this[name](...args)
         }
         origin(...args)
