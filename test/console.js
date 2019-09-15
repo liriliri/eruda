@@ -64,6 +64,40 @@ describe('console', function() {
     expect($tool.find('.eruda-html')).toContainText('test: 2')
   })
 
+  it('group', function() {
+    tool.group('testGroup')
+    expect($tool.find('.eruda-group')).toHaveLength(1)
+    expect($tool.find('.eruda-group-container')).toHaveLength(1)
+    expect($tool.find('.eruda-group-container.eruda-hidden')).toHaveLength(0)
+    expect($tool.find('.eruda-icon-group')).toHaveLength(1)
+    $tool.find('.eruda-group').click()
+    expect($tool.find('.eruda-icon-groupCollapsed')).toHaveLength(1)
+    expect($tool.find('.eruda-group-container.eruda-hidden')).toHaveLength(1)
+    tool.log('test')
+    expect($tool.find('.eruda-group-container').find('.eruda-log')).toContainText('test')
+    tool.groupEnd()
+    tool.log('test')
+    expect($tool.find('.eruda-group-container').find('.eruda-log')).toHaveLength(1)
+    expect($tool.find('.eruda-log')).toHaveLength(2)
+  })
+
+  it('groupCollapsed', function() {
+    tool.groupCollapsed('groupCollapsed')
+    expect($tool.find('.eruda-groupCollapsed')).toHaveLength(1)
+    expect($tool.find('.eruda-group-container.eruda-hidden')).toHaveLength(1)
+    expect($tool.find('.eruda-icon-groupCollapsed')).toHaveLength(1)
+    $tool.find('.eruda-groupCollapsed').click()
+    expect($tool.find('.eruda-icon-group')).toHaveLength(1)
+    expect($tool.find('.eruda-group-container.eruda-hidden')).toHaveLength(0)
+    tool.log('test')
+    expect($tool.find('.eruda-group-container').find('.eruda-log')).toContainText('test')
+    tool.groupEnd()
+    tool.log('test')
+    expect($tool.find('.eruda-group-container').find('.eruda-log')).toHaveLength(1)
+    expect($tool.find('.eruda-log')).toHaveLength(2)
+  })
+
+
   describe('substitution', function() {
     it('number', function() {
       tool.log('Eruda is %d', 1.2, 'year old')

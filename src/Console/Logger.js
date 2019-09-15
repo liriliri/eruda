@@ -138,6 +138,7 @@ export default class Logger extends Emitter {
   clear() {
     this._logs = []
     this._lastLog = {}
+    this._$el = this._$originEl
 
     return this.render()
   }
