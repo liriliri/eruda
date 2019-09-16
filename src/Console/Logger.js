@@ -86,11 +86,17 @@ export default class Logger extends Emitter {
     }
   }
   groupCollapsed(...args) {
+    if (args.length === 0) {
+      args = ['console.groupCollapsed']
+    }
     this.insert('groupCollapsed', args)
 
     return this
   }
   group(...args) {
+    if (args.length === 0) {
+      args = ['console.group']
+    }
     this.insert('group', args)
 
     return this
