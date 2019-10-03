@@ -17,6 +17,7 @@
         margin-bottom: 10px;
         li {
           @include overflow-auto(x);
+          display: flex;
           cursor: pointer;
           border-top: 1px solid $gray-light;
           height: 41px;
@@ -27,7 +28,8 @@
             }
           }
           span {
-            display: inline-block;
+            flex: 0 0 calc(100% / 7);
+            overflow: auto;
             line-height: 40px;
             height: 40px;
             padding: 0 10px;
