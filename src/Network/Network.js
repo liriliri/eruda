@@ -215,11 +215,13 @@ export default class Network extends Tool {
   _showDetail(data) {
     if (data.resTxt && trim(data.resTxt) === '') delete data.resTxt
     if (isEmpty(data.resHeaders)) delete data.resHeaders
+    this._$requests.hide()
     this._$detail.html(this._detailTpl(data)).show()
     this._detailData = data
   }
   _hideDetail() {
     this._$detail.hide()
+    this._$requests.show()
   }
   _rmCfg() {
     const cfg = this.config
