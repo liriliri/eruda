@@ -124,3 +124,33 @@ If you want to create a plugin yourself, follow the guides [here](./doc/PLUGIN.m
 ## Contribution
 
 Read [Contributing Guide](.github/CONTRIBUTING.md) for development setup instructions.
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/liriliri/eruda/graphs/contributors"><img src="https://opencollective.com/eruda/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/eruda/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/eruda"><img src="https://opencollective.com/eruda/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/eruda/contribute)]
+
+<a href="https://opencollective.com/eruda/organization/0/website"><img src="https://opencollective.com/eruda/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/eruda/organization/1/website"><img src="https://opencollective.com/eruda/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/eruda/organization/2/website"><img src="https://opencollective.com/eruda/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/eruda/organization/3/website"><img src="https://opencollective.com/eruda/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/eruda/organization/4/website"><img src="https://opencollective.com/eruda/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/eruda/organization/5/website"><img src="https://opencollective.com/eruda/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/eruda/organization/6/website"><img src="https://opencollective.com/eruda/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/eruda/organization/7/website"><img src="https://opencollective.com/eruda/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/eruda/organization/8/website"><img src="https://opencollective.com/eruda/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/eruda/organization/9/website"><img src="https://opencollective.com/eruda/organization/9/avatar.svg"></a>
