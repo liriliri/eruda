@@ -4277,7 +4277,7 @@ export var Class = _.Class = (function (exports) {
      */
 
     /* dependencies
-     * extend toArr inherits safeGet isMiniProgram 
+     * extend inherits safeGet
      */
 
     exports = function(methods, statics) {
@@ -4289,27 +4289,9 @@ export var Class = _.Class = (function (exports) {
         var className =
             methods.className || safeGet(methods, 'initialize.name') || '';
         delete methods.className;
-        var ctor;
-
-        if (isMiniProgram) {
-            ctor = function() {
-                var args = toArr(arguments);
-                return this.initialize
-                    ? this.initialize.apply(this, args) || this
-                    : this;
-            };
-        } else {
-            ctor = new Function(
-                'toArr',
-                'return function ' +
-                    className +
-                    '()' +
-                    '{' +
-                    'var args = toArr(arguments);' +
-                    'return this.initialize ? this.initialize.apply(this, args) || this : this;' +
-                    '};'
-            )(toArr);
-        }
+        var ctor = function(...args) {
+            return this.initialize && this.initialize(...args) || this;
+        };
 
         inherits(ctor, parent);
         ctor.prototype.constructor = ctor;
