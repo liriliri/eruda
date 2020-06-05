@@ -59,7 +59,7 @@ javascript:(function () { var script = document.createElement('script'); script.
 通过CDN使用：
 
 ```html
-<script src="//cdn.bootcss.com/eruda/1.5.2/eruda.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.js"></script>
 <script>eruda.init();</script>
 ```
 
@@ -72,11 +72,11 @@ npm install eruda --save
 在页面中加载脚本：
 
 ```html
-<script src="node_modules/eruda/eruda.min.js"></script>
+<script src="node_modules/eruda/eruda.js"></script>
 <script>eruda.init();</script>
 ```
 
-Js 文件对于移动端来说略重（gzip 后大概 100kb）。建议通过 url 参数来控制是否加载调试器，比如：
+JS 文件对于移动端来说略重（gzip 后大概 100kb）。建议通过 url 参数来控制是否加载调试器，比如：
 
 ```javascript
 ;(function () {

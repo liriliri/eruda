@@ -18,12 +18,10 @@ npm run setup
 ```bash
 # watch and auto re-build.
 npm run dev
-# build eruda.js and eruda.min.js
+# build eruda.js
 npm run build
 # lint, build and test.
 npm run ci
-# check test coverage.
-npm run cov
 ```
 
 ## Project Structure
