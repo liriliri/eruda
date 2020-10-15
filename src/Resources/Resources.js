@@ -312,6 +312,38 @@ export default class Resources extends Tool {
           showSources('raw', val)
         }
       })
+      .on('click', '.eruda-edit-val', function(e) {
+        e.stopPropagation();
+
+        const $this = $(this)
+        const key = $this.parent().data('key')
+        const type = $this.parent().data('type')
+
+        let val
+        switch (type) {
+            case 'local':
+                val = localStorage.getItem(key)
+                break;
+            case 'session':
+                val = sessionStorage.getItem(key)
+                break;
+            case 'cookie':
+                self._cookieData.some(item => {
+                    if (item.key == key) {
+                        val = item.val
+                        return true
+                    }
+                })
+                break;
+        
+            default:
+                break;
+        }
+
+        const sources = container.get('sources')
+        sources && sources.enableEditMode(type, key);
+        showSources('raw', val)
+      })
       .on('click', '.eruda-img-link', function() {
         const src = $(this).attr('src')
 
@@ -341,7 +373,7 @@ export default class Resources extends Tool {
 
         const url = $(this).attr('href')
 
-        if (type === 'iframe' || !sameOrigin(location.href, url)) {
+	if (type === 'iframe' || !sameOrigin(location.href, url)) {
           showSources('iframe', url)
         } else {
           ajax({
@@ -543,3 +575,4 @@ const sliceStr = (str, len) =>
 const regImg = /\.(jpeg|jpg|gif|png)$/
 
 const isImg = url => regImg.test(url)
+

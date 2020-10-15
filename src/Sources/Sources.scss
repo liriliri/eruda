@@ -9,6 +9,19 @@
     @include overflow-auto(x);
     width: 100%;
     min-height: 100%;
+
+    textarea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        border: none;
+        resize: none;
+	user-select: all;
+    }
   }
   .raw {
     user-select: text;
@@ -66,3 +79,4 @@
     height: 100%;
   }
 }
+

@@ -1,3 +1,8 @@
 <div {{{class 'raw-wrapper'}}}>
-  <div {{{class 'raw'}}}>{{val}}</div>
+  {{#if editMode}}
+    <textarea>{{val}}</textarea>
+  {{else}}
+    <div {{{class 'raw'}}}>{{val}}</div>
+  {{/if}}
 </div>
+

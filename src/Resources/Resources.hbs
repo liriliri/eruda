@@ -19,7 +19,9 @@
           {{#each localStoreData}}
             <tr>
               <td {{{class 'key'}}}>{{key}}</td>
-              <td {{{class 'storage-val'}}} data-key="{{key}}" data-type="local">{{val}}</td>
+              <td {{{class 'storage-val'}}} data-key="{{key}}" data-type="local">{{val}}
+                  <div {{{class 'edit-val'}}}></div>
+              </td>
               <td {{{class 'control'}}}>
                 <span {{{class 'icon-delete delete-storage'}}} data-key="{{key}}" data-type="local"></span>
               </td>
@@ -55,7 +57,9 @@
         {{#each sessionStoreData}}
           <tr>
             <td {{{class 'key'}}}>{{key}}</td>
-            <td {{{class 'storage-val'}}} data-key="{{key}}" data-type="session">{{val}}</td>
+            <td {{{class 'storage-val'}}} data-key="{{key}}" data-type="session">{{val}}
+                  <div {{{class 'edit-val'}}}></div>
+            </td>
             <td {{{class 'control'}}}>
               <span {{{class 'icon-delete delete-storage'}}} data-key="{{key}}" data-type="session"></span>
             </td>
@@ -91,7 +95,11 @@
           {{#each cookieData}}
             <tr>
               <td {{{class 'key'}}}>{{key}}</td>
-              <td>{{val}}</td>
+              {{!-- <td>{{val}}</td> --}}
+              <td {{{class 'cookie-val'}}} data-key="{{key}}" data-type="cookie">
+                  {{val}}
+                  <div {{{class 'edit-val'}}}></div>
+              </td>
               <td {{{class 'control'}}}>
                 <span {{{class 'icon-delete delete-cookie'}}} data-key="{{key}}"></span>
               </td>
@@ -182,3 +190,4 @@
     {{/if}}
   </ul>
 </div>
+

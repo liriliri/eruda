@@ -15,6 +15,9 @@ export default class Sources extends Tool {
     this._showLineNum = true
     this._formatCode = true
     this._indentSize = 4
+    this._editMode = false
+    this._storageType = ''
+    this._storageKey = ''
 
     this._loadTpl()
   }
@@ -30,6 +33,16 @@ export default class Sources extends Tool {
 
     evalCss.remove(this._style)
     this._rmCfg()
+  }
+  enableEditMode(type, key){
+    this._editMode = true
+    this._storageType = type
+    this._storageKey = key
+  }
+  disableEditMode(){
+    this._editMode = false;
+    this._storageType = ''
+    this._storageKey = ''
   }
   set(type, val) {
     if (type === 'img') {
@@ -257,7 +270,11 @@ export default class Sources extends Tool {
     objViewer.set(val)
   }
   _renderRaw() {
-    this._renderHtml(this._rawTpl({ val: this._data.val }))
+    this._renderHtml(this._rawTpl({ val: this._data.val, editMode: this._editMode }), false)
+    if (this._editMode) {
+        this._editStorage()
+        this.disableEditMode()
+    }
   }
   _renderIframe() {
     this._renderHtml(this._iframeTpl({ src: this._data.val }))
@@ -269,7 +286,37 @@ export default class Sources extends Tool {
     // Need setTimeout to make it work
     setTimeout(() => (this._$el.get(0).scrollTop = 0), 0)
   }
+  _editStorage(){
+    const type = this._storageType
+    const key = this._storageKey
+
+    this._$el.find('.eruda-raw-wrapper textarea')
+        .on('input', function (){
+            const val = this.value.trim();
+            switch (type) {
+                case 'cookie':
+                    setCookie(key, val)
+                    break;
+                case 'local':
+                    localStorage[key] = val
+                    break;
+                case 'session':
+                    sessionStorage[key] = val
+                    break;
+                default:
+                    break;
+            }
+        })
+  }
+}
+
+function setCookie(cname, cvalue, exdays = 1) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = 'expires=' + d.toUTCString();
+  document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 
 const MAX_BEAUTIFY_LEN = 100000
 const MAX_LINE_NUM_LEN = 400000
+

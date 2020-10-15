@@ -102,6 +102,19 @@
           }
         }
       }
+
+      &[data-type]{
+          position: relative;
+
+          .edit-val{
+            @include absolute();
+            left: 50%;
+            width: 50%;
+            background-color: #eee;
+            opacity: .25;
+          }
+      }
     }
   }
 }
+
