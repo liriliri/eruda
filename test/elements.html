@@ -15,6 +15,20 @@
     <script src="boot.js"></script>
   </head>
   <body>
+    <div class="before"></div>
+    <style>
+      .before:before {
+        content: "Me is a before";
+      }
+      .before {
+        height: 50px;
+      }
+      @media (min-width: 320px) {
+        .before {
+          height: 100px;
+        }
+      }
+    </style>
     <script>
       boot('elements')
     </script>

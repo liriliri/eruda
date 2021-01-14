@@ -46,7 +46,38 @@
         </li>
       </ul>
     </nav>
+    
+    <div class="new-ver">
+      <b> New version </b>: Add to Elements: ::before, ::after, @keyframes, @media.... And edit CSS!
+      <br>
+      Tao to inline style in mode Elements!
+    </div>
+    
+    <style>
+      .new-ver {
+        padding: 12px;
+        animation: fade 3s ease infinite;
+      }
+      @media (min-width: 240px) {
+        .new-ver {
+          font-size: 18px;
+        }
+      }
+      .new-ver::after {
+        content: "I am after!";
+      }
+      @keyframes fade {
+        from, to{
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+    </style>
     <script>
+    
+    eruda.init()/*
       ;(function () {
         let el = document.createElement('div')
         document.body.appendChild(el)
@@ -57,7 +88,7 @@
               useShadowDom: false,
               defaults: {
                 displaySize: 50,
-                transparency: 0.9,
+                transparency: 0.9,cq
                 theme: 'Monokai Pro',
               },
             })
@@ -66,7 +97,7 @@
           }
           eruda.show().get().config.set('displaySize', 50)
         }, 1000)
-      })()
+      })()*/
     </script>
   </body>
 </html>
