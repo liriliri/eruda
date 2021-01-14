@@ -2,12 +2,18 @@
 @import '../style/mixin';
 
 #elements {
+  * {
+    user-select: text;
+  }
+
   padding-bottom: 40px;
   font-size: 14px;
+
   .show-area {
     @include overflow-auto(y);
     height: 100%;
   }
+
   .parents {
     @include overflow-auto(x);
     background: var(--darker-background);
@@ -17,36 +23,45 @@
     border-bottom: 1px solid var(--border);
     cursor: pointer;
     font-size: $font-size-s;
+
     li {
       display: inline-block;
+
       .parent {
         display: inline-block;
       }
+
       &:last-child {
         margin-right: 0;
       }
     }
+
     .icon-arrow-right {
       font-size: 8px;
       position: relative;
       top: -1px;
     }
   }
+
   .breadcrumb {
     @include breadcrumb();
     cursor: pointer;
     transition: background $anim-duration, color $anim-duration;
+
     &:active {
       background: var(--highlight);
       color: var(--select-foreground);
+
       span {
         color: var(--select-foreground);
       }
     }
   }
+
   .section {
     border-bottom: 1px solid var(--border);
     color: var(--foreground);
+
     h2 {
       @include right-btn();
       color: var(--primary);
@@ -55,21 +70,26 @@
       padding: $padding;
       font-size: $font-size;
       transition: background $anim-duration;
+
       &.active-effect {
         cursor: pointer;
       }
+
       &.active-effect:active {
         background: var(--highlight);
         color: var(--select-foreground);
       }
     }
+
     margin-bottom: 10px;
   }
+
   .children {
     background: var(--darker-background);
     color: var(--foreground);
     margin-bottom: 10px !important;
     border-bottom: 1px solid var(--border);
+
     li {
       @include overflow-auto(x);
       cursor: default;
@@ -77,42 +97,53 @@
       border-top: 1px solid var(--border);
       white-space: nowrap;
       transition: background $anim-duration, color $anim-duration;
+
       span {
         transition: color $anim-duration;
       }
+
       &.active-effect {
         cursor: pointer;
       }
+
       &.active-effect:active {
         background: var(--highlight);
         color: var(--select-foreground);
+
         span {
           color: var(--select-foreground);
         }
       }
     }
   }
+
   .attributes {
     font-size: $font-size-s;
+
     a {
       color: var(--link-color);
     }
+
     .table-wrapper {
       @include overflow-auto(x);
     }
+
     table {
       td {
         padding: 5px 10px;
       }
     }
   }
+
   .text-content {
     background: #fff;
+
     .content {
       @include overflow-auto(x);
       padding: $padding;
     }
   }
+
   .style-color {
     position: relative;
     top: 1px;
@@ -123,6 +154,7 @@
     border: 1px solid var(--border);
     display: inline-block;
   }
+
   .box-model {
     @include overflow-auto(x);
     color: #222;
@@ -131,21 +163,25 @@
     text-align: center;
     white-space: nowrap;
     border-bottom: 1px solid var(--color);
+
     .label {
       position: absolute;
       margin-left: 3px;
       padding: 0 2px;
     }
+
     .top,
     .left,
     .right,
     .bottom {
       display: inline-block;
     }
+
     .left,
     .right {
       vertical-align: middle;
     }
+
     .position,
     .margin,
     .border,
@@ -159,40 +195,50 @@
       padding: 3px;
       margin: 3px;
     }
+
     .position {
       border: 1px grey dotted;
     }
+
     .margin {
       border: 1px dashed;
       background: rgba(246, 178, 107, 0.66);
     }
+
     .border {
       border: 1px #000 solid;
       background: rgba(255, 229, 153, 0.66);
     }
+
     .padding {
       border: 1px grey dashed;
       background: rgba(147, 196, 125, 0.55);
     }
+
     .content {
       border: 1px grey solid;
       min-width: 100px;
       background: rgba(111, 168, 220, 0.66);
     }
   }
+
   .computed-style {
     font-size: $font-size-s;
+
     a {
       color: var(--link-color);
     }
+
     .table-wrapper {
       @include overflow-auto(y);
       max-height: 200px;
       border-top: 1px solid var(--border);
     }
+
     table {
       td {
         padding: 5px 10px;
+
         &.key {
           white-space: nowrap;
           color: var(--var-color);
@@ -200,43 +246,65 @@
       }
     }
   }
+
   .styles {
     font-size: $font-size-s;
+
     .style-wrapper {
       padding: $padding;
+
       .style-rules {
         border: 1px solid var(--border);
         padding: $padding;
         margin-bottom: 10px;
-        .rule {
-          padding-left: 2em;
-          word-break: break-all;
-          a {
-            color: var(--link-color);
-          }
+
+        .media-text {
           span {
             color: var(--var-color);
           }
+
+          ~.selector-text {
+            padding-left: 1em;
+          }
         }
+
+        .rule {
+          padding-left: 2em;
+          word-break: break-all;
+
+          a {
+            color: var(--link-color);
+          }
+
+          span:first-child {
+            color: var(--var-color);
+          }
+        }
+
         &:last-child {
           margin-bottom: 0;
         }
       }
     }
   }
+
   .listeners {
     font-size: $font-size-s;
+
     .listener-wrapper {
       padding: $padding;
+
       .listener {
         margin-bottom: 10px;
         overflow: hidden;
         border: 1px solid var(--border);
+
         .listener-type {
           padding: $padding;
           background: var(--darker-background);
           color: var(--primary);
         }
+
         .listener-content {
           li {
             @include overflow-auto(x);
@@ -247,6 +315,7 @@
       }
     }
   }
+
   .bottom-bar {
     height: 40px;
     background: var(--darker-background);
@@ -256,6 +325,7 @@
     width: 100%;
     font-size: 0;
     border-top: 1px solid var(--border);
+
     .btn {
       cursor: pointer;
       text-align: center;
@@ -265,10 +335,12 @@
       width: 25%;
       display: inline-block;
       transition: background $anim-duration, color $anim-duration;
+
       &:active {
         background: var(--highlight);
         color: var(--select-foreground);
       }
+
       &.active {
         color: var(--accent);
       }

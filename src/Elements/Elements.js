@@ -335,6 +335,7 @@ export default class Elements extends Tool {
     if (this._rmDefComputedStyle) {
       computedStyle = rmDefComputedStyle(computedStyle, styles)
     }
+    
     ret.rmDefComputedStyle = this._rmDefComputedStyle
     const computedStyleSearchKeyword = lowerCase(ret.computedStyleSearchKeyword)
     if (computedStyleSearchKeyword) {
@@ -354,12 +355,34 @@ export default class Elements extends Tool {
     if (!isElExist(this._curEl)) return this._back()
 
     this._highlight[this._highlightElement ? 'show' : 'hide']()
-    this._renderHtml(this._tpl(this._getData()))
+    const data = this._getData()
+    this._renderHtml(this._tpl(data), data)
   }
-  _renderHtml(html) {
+  _renderHtml(html, data) {
     if (html === this._lastHtml) return
     this._lastHtml = html
     this._$showArea.html(html)
+    
+    const settings = this._container.get('settings')
+console.log( settings )
+    /*eslint no-unused-vars: "error"*/
+    this._$showArea.find('*[data-editor]').each((index, item) => {
+      const path = item.getAttribute('data-editor').split('_')
+      let style = data.styles[path[0]]
+      if ( path.length == 3 ) {
+        style = style.blocks[path[1]]
+      }
+        const name = path[path.length - 1]
+      item.removeAttribute('data-editor')
+      $(item).on('click', () => {
+        const oldVal = style.styleRoot[name]
+        const newVal = window.prompt(`Set CSS ${name}`, oldVal)
+        if ( oldVal != newVal) {
+          style.styleRoot[ name ] = newVal
+          $(item).find('[data-value]').text(newVal)
+        }
+      })
+    })
   }
   _updateHistory() {
     const console = this._container.get('console')

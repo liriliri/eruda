@@ -32,6 +32,18 @@ const u = navigator.userAgent
 const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1
 
 let id = 0
+let _eval = () => {}
+!(() => {
+  _eval = (jsInput) => {
+    let ret
+    try {
+      ret = eval.call(window, `(${jsInput})`)
+    } catch (e) {
+      ret = eval.call(window, jsInput)
+    }
+    return ret
+  }
+})()
 
 export default class Logger extends Emitter {
   constructor($container) {
@@ -542,14 +554,8 @@ export default class Logger extends Emitter {
     })
   }
   _evalJs(jsInput) {
-    let ret
-
     this._injectGlobal()
-    try {
-      ret = eval.call(window, `(${jsInput})`)
-    } catch (e) {
-      ret = eval.call(window, jsInput)
-    }
+    const ret = _eval(jsInput)
     this.setGlobal('$_', ret)
     this._clearGlobal()
 

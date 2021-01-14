@@ -45,13 +45,37 @@
     <div {{{class 'style-wrapper'}}}>
       {{#each styles}}
         <div {{{class 'style-rules'}}}>
-          <div>{{selectorText}} {</div>
-          {{#each style}}
-            <div {{{class 'rule'}}}>
-              <span>{{@key}}</span>: {{{.}}};
+          {{#if isKeyframes}}
+            <div {{{class 'media-text'}}}>
+              <span>@keyframes </span>{{name}} {
             </div>
-          {{/each}}
-          <div>}</div>
+            {{#each blocks}}
+              <div {{{class 'selector-text'}}}>{{keyText}} {</div>
+              {{#each style}}
+                <div {{{class 'rule'}}} data-editor="{{@../../index}}_{{@../index}}_{{@key}}">
+                  <span>{{@key}}</span>: <span data-value>{{{.}}};</span> 
+                </div>
+              {{/each}}
+              <div {{{class 'selector-text'}}}>}</div>
+            {{/each}}
+            <div>}</div>
+          {{else}}
+            {{#if media}}
+              <div {{{class 'media-text'}}}>
+                <span>@media </span>{{media}} {
+              </div>
+            {{/if}}
+            <div {{{class 'selector-text'}}}>{{selectorText}} {</div>
+            {{#each style}}
+              <div {{{class 'rule'}}} data-editor="{{@../index}}_{{@key}}">
+                <span>{{@key}}</span>: <span data-value>{{{.}}};</span> 
+              </div>
+            {{/each}}
+            <div {{{class 'selector-text'}}}>}</div>
+            {{#if media}}
+              <div>}</div>
+            {{/if}}
+          {{/if}}
         </div>
       {{/each}}
     </div>
