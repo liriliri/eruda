@@ -160,7 +160,7 @@ export default class Resources extends Tool {
       key: name,
       val: value,
     }))
-
+    
     this._cookieData = cookieData
 
     return this
