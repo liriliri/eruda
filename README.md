@@ -119,6 +119,7 @@ eruda.init({
 * [eruda-dom](https://github.com/liriliri/eruda-dom): Navigate dom tree.
 * [eruda-orientation](https://github.com/liriliri/eruda-orientation): Test orientation api.
 * [eruda-touches](https://github.com/liriliri/eruda-touches): Visualize screen touches.
+* [eruda-pixel](https://github.com/Faithree/eruda-pixel): UI pixel restoration tool.
 
 If you want to create a plugin yourself, follow the guides [here](./doc/PLUGIN.md).
 
