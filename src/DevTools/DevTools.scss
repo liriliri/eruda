@@ -13,6 +13,7 @@
   padding-top: 40px !important;
   opacity: 0;
   transition: opacity $anim-duration, height $anim-duration;
+  padding-bottom: env(safe-area-inset-bottom);
   .tools {
     @include overflow-auto();
     height: 100%;
