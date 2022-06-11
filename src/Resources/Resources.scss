@@ -86,13 +86,16 @@
       &.control {
         padding: 0;
         font-size: 0;
-        width: 40px;
-        .icon-delete {
+        width: 56px;
+        padding-right: 6px;
+        .icon-copy,
+        .icon-delete,
+        .icon-check {
           cursor: pointer;
           color: var(--primary);
           font-size: $font-size;
           display: inline-block;
-          width: 40px;
+          width: 25px;
           height: 40px;
           text-align: center;
           line-height: 40px;

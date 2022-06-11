@@ -18,6 +18,7 @@ import {
   contain,
   filter,
   map,
+  copy
 } from '../lib/util'
 import { safeStorage } from '../lib/fione'
 import { isErudaEl } from '../lib/extraUtil'
@@ -271,11 +272,38 @@ export default class Resources extends Tool {
           self.refreshSessionStorage()._render()
         }
       })
+      .on('click', '.eruda-copy-storage', function () {
+        const $this = $(this)
+        const key = $this.data('key')
+        const type = $this.data('type')
+        const curValue = type === 'local' ? localStorage.getItem(key) : sessionStorage.getItem(key);
+
+        copy(curValue, function() {
+          copy(curValue, function() {
+            $this.addClass('eruda-icon-check').rmClass('eruda-icon-copy');
+            setTimeout(function(){
+              $this.addClass('eruda-icon-copy').rmClass('eruda-icon-check');
+            }, 1500);
+          });
+        });
+      })
       .on('click', '.eruda-delete-cookie', function () {
         const key = $(this).data('key')
 
         chobitsu.domain('Network').deleteCookies({ name: key })
         self.refreshCookie()._render()
+      })
+      .on('click', '.eruda-copy-cookie', function () {
+        const $this = $(this);
+        const key = $this.data('key')
+        const curValue = self._cookieData.find(function(it) { return it.key === key ? true : false; }).val
+
+        copy(curValue, function() {
+          $this.addClass('eruda-icon-check').rmClass('eruda-icon-copy');
+          setTimeout(function(){
+            $this.addClass('eruda-icon-copy').rmClass('eruda-icon-check');
+          }, 1500);
+        });
       })
       .on('click', '.eruda-clear-storage', function () {
         const type = $(this).data('type')
