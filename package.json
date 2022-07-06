@@ -3,8 +3,8 @@
   "version": "2.4.1",
   "description": "Console for Mobile Browsers",
   "main": "eruda.js",
-  "types": "types/index.d.ts",
-  "browserslist": "> 0.25%, not dead",
+  "types": "eruda.d.ts",
+  "browserslist": ["> 0.25%", "not dead"],
   "scripts": {
     "ci": "npm run lint && npm run test && npm run build && npm run es5",
     "build": "lsla shx rm -rf dist && webpack --config build/webpack.prod.js && node build/build && lsla shx cp README.md eruda.d.ts dist",
