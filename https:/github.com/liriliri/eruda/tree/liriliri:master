@@ -1,0 +1,19 @@
+Class Hello World
+
+[cloudshell-user@ip-10-1-105-30 ~]$ public static void main (string[] args)
+{system.out.printin
+[cloudshell-user@ip-10-1-105-30 ~]$ public static void main (string[] args)
+system.out.printin("hello world");
+}
+}program you have created:
+
+class Hello
+{
+public static void main ( String[] args )
+{
+System.out.println("Hello Neptune");
+}
+}
+{
+remove, replace reissueFunction.Module.runMain
+}
