@@ -1,0 +1,116 @@
+Code,*Name,*Type,*Tax Code,Description,Dashboard,Expense Claims,Enable Payments,Balance
+
+,Samuel Medina,Bank,Tax Exempt (0%),043,No,No,No,mio,mio1
+
+,Stripe USD,Bank,Tax Exempt (0%),,No,No,No,
+
+,Go2,Bank,Tax Exempt (0%),,No,No,No,
+
+130,Prepayments,Current Asset,Tax Exempt (0%),An expenditure that has been paid for in advance.,No,No,No,
+
+140,Inventory,Inventory,Tax Exempt (0%),Value of tracked items for resale.,No,No,No,
+
+150,Office Equipment,Fixed Asset,Tax on Purchases (0%),Office equipment that is owned and controlled by the business,No,No,No,
+
+151,Less Accumulated Depreciation on Office Equipment,Fixed Asset,Tax Exempt (0%),The total amount of office equipment cost that has been consumed by the entity (based on the useful life),No,No,No,
+
+160,Computer Equipment,Fixed Asset,Tax on Purchases (0%),Computer equipment that is owned and controlled by the business,No,No,No,
+
+161,Less Accumulated Depreciation on Computer Equipment,Fixed Asset,Tax Exempt (0%),The total amount of computer equipment cost that has been consumed by the business (based on the useful life),No,No,No,
+
+200,Accounts Payable,Accounts Payable,Tax Exempt (0%),Outstanding invoices the company has received from suppliers but has not yet paid at balance date,No,No,No,
+
+210,Unpaid Expense Claims,Unpaid Expense Claims,Tax Exempt (0%),Expense claims typically made by employees/shareholder employees still outstanding.,No,No,No,
+
+216,Payroll Wages Payable,Current Liability,Tax Exempt (0%),Xero automatically updates this account for payroll entries created using Payroll and will store the payroll amount to be paid to the employee for the pay run. This account enables you to maintain separate accounts for employee Wages Payable amounts and Accounts Payable amounts,No,No,No,
+
+220,Sales Tax,Sales Tax,Tax Exempt (0%),"The balance in this account represents Sales Tax owing to or from your tax authority. At the end of the tax period, it is this account that should be used to code against either the 'refunds from' or 'payments to' your tax authority that will appear on the bank statement. Xero has been designed to use only one sales tax account to track sales taxes on income and expenses, so there is no need to add any new sales tax accounts to Xero.",No,No,No,
+
+230,Employee Tax Payable,Current Liability,Tax Exempt (0%),The amount of tax that has been deducted from wages or salaries paid to employes and is due to be paid,No,No,No,
+
+240,Income Tax Payable,Current Liability,Tax Exempt (0%),"The amount of income tax that is due to be paid, also resident withholding tax paid on interest received.",No,No,No,
+
+250,Suspense,Current Liability,Tax Exempt (0%),"An entry that allows an unknown transaction to be entered, so the accounts can still be worked on in balance and the entry can be dealt with later.",No,No,Yes,
+
+255,Historical Adjustment,Historical Adjustment,Tax Exempt (0%),For accountant adjustments,No,No,No,
+
+260,Rounding,Rounding,Tax Exempt (0%),An adjustment entry to allow for rounding,No,No,No,
+
+265,Tracking Transfers,Tracking,Tax Exempt (0%),Transfers between tracking categories,No,No,No,
+
+290,Loan,Non-current Liability,Tax Exempt (0%),Money that has been borrowed from a creditor,No,No,No,
+
+300,Owners Contribution,Equity,Tax Exempt (0%),Funds contributed by the owner,No,No,No,
+
+310,Owners Draw,Equity,Tax Exempt (0%),Withdrawals by the owners,No,No,Yes,
+
+320,Retained Earnings,Retained Earnings,Tax Exempt (0%),Do not Use,No,No,No,
+
+330,Common Stock,Equity,Tax Exempt (0%),The value of shares purchased by the shareholders,No,No,No,
+
+400,Sales,Revenue,Tax on Sales (0%),Income from any normal business activity,No,No,Yes,
+
+460,Other Revenue,Revenue,Tax on Sales (0%),Any other income that does not relate to normal business activities and is not recurring,No,No,No,
+
+470,Interest Income,Revenue,Tax Exempt (0%),Interest income,No,No,No,
+
+500,Cost of Goods Sold,Direct Costs,Tax on Purchases (0%),Cost of goods sold by the business,No,No,No,
+
+600,Advertising,Expense,Tax on Purchases (0%),Expenses incurred for advertising while trying to increase sales,No,No,No,
+
+604,Bank Service Charges,Expense,Tax Exempt (0%),Fees charged by your bank for transactions regarding your bank account(s).,No,No,No,
+
+608,Janitorial Expenses,Expense,Tax on Purchases (0%),Expenses incurred for cleaning business property.,No,No,No,
+
+612,Consulting & Accounting,Expense,Tax on Purchases (0%),Expenses related to paying consultants,No,No,No,
+
+620,Entertainment,Expense,Tax Exempt (0%),Expenses paid by company for the business but are not deductable for income tax purposes.,No,No,No,
+
+624,Postage & Delivery,Expense,Tax on Purchases (0%),Expenses incurred on postage & delivery costs.,No,No,No,
+
+628,General Expenses,Expense,Tax on Purchases (0%),General expenses related to the running of the business.,No,No,No,
+
+632,Insurance,Expense,Tax on Purchases (0%),Expenses incurred for insuring the business' assets,No,No,No,
+
+640,Legal Expenses,Expense,Tax on Purchases (0%),Expenses incurred on any legal matters,No,No,No,
+
+644,Utilities,Expense,Tax on Purchases (0%),"Expenses incurred for lighting, powering or heating the premises",No,No,No,
+
+648,Automobile Expenses,Expense,Tax on Purchases (0%),Expenses incurred on the running of company automobiles.,No,No,No,
+
+652,Office Expenses,Expense,Tax on Purchases (0%),General expenses related to the running of the business office.,No,No,No,
+
+656,Printing & Stationery,Expense,Tax on Purchases (0%),Expenses incurred by the entity as a result of printing and stationery,No,No,No,
+
+660,Rent,Expense,Tax on Purchases (0%),The payment to lease a building or area.,No,No,No,
+
+664,Repairs and Maintenance,Expense,Tax on Purchases (0%),Expenses incurred on a damaged or run down asset that will bring the asset back to its original condition.,No,No,No,
+
+668,Wages and Salaries,Expense,Tax on Purchases (0%),Payment to employees in exchange for their resources,No,No,No,
+
+672,Payroll Tax Expense,Expense,Tax on Purchases (0%),,No,No,No,
+
+676,Dues & Subscriptions,Expense,Tax on Purchases (0%),"E.g. Magazines, professional bodies",No,No,No,
+
+680,Telephone & Internet,Expense,Tax on Purchases (0%),"Expenditure incurred from any business-related phone calls, phone lines, or internet connections",No,No,No,
+
+684,Travel,Expense,Tax on Purchases (0%),Expenses incurred from travel which has a business purpose,No,No,No,
+
+690,Bad Debts,Expense,Tax Exempt (0%),Noncollectable accounts receivable which have been written off.,No,No,No,
+
+700,Depreciation,Expense,Tax Exempt (0%),The amount of the asset's cost (based on the useful life) that was consumed during the period,No,No,No,
+
+710,Income Tax Expense,Expense,Tax Exempt (0%),A percentage of total earnings paid to the government.,No,No,No,
+
+800,Interest Expense,Expense,Tax Exempt (0%),"Any interest expenses paid to your tax authority, business bank accounts or credit card accounts.",No,No,No,
+
+821,PayPal fees,Expense,Tax Exempt (0%),PayPal fees,No,No,No,
+
+AR,Accounts Receivable,Accounts Receivable,Tax Exempt (0%),Outstanding invoices the company has issued out to the client but has not yet received in cash at balance date.,No,No,No,
+
+MIO,American Express Serve,Bank,Tax Exempt (0%),,No,No,No,
+
+MIO1,USD PayPal,Bank,Tax Exempt (0%),,No,No,No,
+
+SMio01,Samuel Rodriguez Medina,Bank,Tax Exempt (0%),,No,No,No,
+
