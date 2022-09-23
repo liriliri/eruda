@@ -1,0 +1,6 @@
+{
+"id": "9c3c6d7049225173b997cb95eb416d573141821e",
+"repo": "platform/frameworks/base",
+"revision": "a70b3d1a464fb781801844edd8f9b899f60784e8",
+"path": "core/proto/android/nfc/card_emulation.proto"
+}
