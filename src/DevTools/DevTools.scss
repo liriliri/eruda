@@ -11,6 +11,7 @@
   z-index: 500;
   display: none;
   padding-top: 40px !important;
+  padding-bottom: env(safe-area-inset-bottom);
   opacity: 0;
   transition: opacity $anim-duration;
   border-top: 1px solid var(--border);
