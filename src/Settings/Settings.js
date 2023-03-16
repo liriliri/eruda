@@ -61,7 +61,7 @@ export default class Settings extends Tool {
     this._setting.clear()
   }
   switch(config, key, desc) {
-    const id = this._genId('settings')
+    const id = this._genId()
 
     const item = this._setting.appendCheckbox(id, !!config.get(key), desc)
     this._settings.push({ config, key, id, item })
@@ -69,7 +69,7 @@ export default class Settings extends Tool {
     return this
   }
   select(config, key, desc, selections) {
-    const id = this._genId('settings')
+    const id = this._genId()
 
     const selectOptions = {}
     each(selections, (selection) => (selectOptions[selection] = selection))
@@ -85,7 +85,7 @@ export default class Settings extends Tool {
     return this
   }
   range(config, key, desc, { min = 0, max = 1, step = 0.1 }) {
-    const id = this._genId('settings')
+    const id = this._genId()
 
     const item = this._setting.appendNumber(id, config.get(key), desc, {
       max,
