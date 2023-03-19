@@ -121,7 +121,7 @@ export default class Resources extends Tool {
 
     const stylesheetState = getState('stylesheet', stylesheetData.length)
     let stylesheetDataHtml = '<li>Empty</li>'
-    if (!stylesheetData) {
+    if (!isEmpty(stylesheetData)) {
       stylesheetDataHtml = map(stylesheetData, (stylesheet) => {
         stylesheet = escape(stylesheet)
         return ` <li><a href="${stylesheet}" target="_blank" class="${c(
