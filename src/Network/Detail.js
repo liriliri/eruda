@@ -101,6 +101,10 @@ export default class Detail extends Emitter {
     const detailData = this._detailData
 
     let data = `${detailData.method} ${detailData.url} ${detailData.status}\n`
+    if(!isEmpty(detailData.data)) {
+      data += '\nRequest Data\n\n'
+      data += `${detailData.data}\n`
+    }
     if (!isEmpty(detailData.reqHeaders)) {
       data += '\nRequest Headers\n\n'
       each(detailData.reqHeaders, (val, key) => (data += `${key}: ${val}\n`))
