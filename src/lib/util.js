@@ -5,7 +5,6 @@ import isUndef from 'licia/isUndef'
 import last from 'licia/last'
 import map from 'licia/map'
 import memStorage from 'licia/memStorage'
-import root from 'licia/root'
 import toNum from 'licia/toNum'
 import trim from 'licia/trim'
 import html from 'licia/html'
@@ -150,7 +149,6 @@ function processClass(str) {
   }).join(' ')
 }
 
-const hasTouchSupport = 'ontouchstart' in root
 const touchEvents = {
   start: 'touchstart',
   move: 'touchmove',
@@ -162,8 +160,8 @@ const mouseEvents = {
   end: 'mouseup',
 }
 
-export function drag(name) {
-  return hasTouchSupport ? touchEvents[name] : mouseEvents[name]
+export function dragEvents(name) {
+  return [touchEvents[name], mouseEvents[name]]
 }
 
 export function eventClient(type, e) {

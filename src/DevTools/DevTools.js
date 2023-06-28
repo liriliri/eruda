@@ -23,7 +23,7 @@ import LunaModal from 'luna-modal'
 import LunaTab from 'luna-tab'
 import {
   classPrefix as c,
-  drag,
+  dragEvents,
   eventClient,
   hasSafeArea,
   safeStorage,
@@ -327,8 +327,8 @@ export default class DevTools extends Emitter {
 
       $resizer.css('height', '100%')
 
-      $document.on(drag('move'), moveListener)
-      $document.on(drag('end'), endListener)
+      dragEvents('move').forEach(e => $document.on(e, moveListener))
+      dragEvents('end').forEach(e => $document.on(e, endListener))
     }
     const moveListener = (e) => {
       if (!this._isResizing) {
@@ -354,11 +354,11 @@ export default class DevTools extends Emitter {
 
       $resizer.css('height', 10)
 
-      $document.off(drag('move'), moveListener)
-      $document.off(drag('end'), endListener)
+      dragEvents('move').forEach(e => $document.off(e, moveListener))
+      dragEvents('end').forEach(e => $document.off(e, endListener))
     }
     $resizer.css('height', 10)
-    $resizer.on(drag('start'), startListener)
+    dragEvents('start').forEach(e => $resizer.on(e, startListener))
 
     $navBar.on('contextmenu', (e) => e.preventDefault())
     this.$container.on('click', (e) => e.stopPropagation())

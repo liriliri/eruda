@@ -4,7 +4,7 @@ import Emitter from 'licia/Emitter'
 import $ from 'licia/$'
 import nextTick from 'licia/nextTick'
 import orientation from 'licia/orientation'
-import { pxToNum, classPrefix as c, drag, eventClient } from '../lib/util'
+import { pxToNum, classPrefix as c, dragEvents, eventClient } from '../lib/util'
 import evalCss from '../lib/evalCss'
 
 const $document = $(document)
@@ -84,6 +84,8 @@ export default class EntryBtn extends Emitter {
     this.setPos(pos)
   }
   _onDragStart = (e) => {
+    e.preventDefault()
+
     const $el = this._$el
     $el.addClass(c('active'))
 
@@ -93,8 +95,8 @@ export default class EntryBtn extends Emitter {
     this._oldX = pxToNum($el.css('left'))
     this._oldY = pxToNum($el.css('top'))
     this._startY = eventClient('y', e)
-    $document.on(drag('move'), this._onDragMove)
-    $document.on(drag('end'), this._onDragEnd)
+    dragEvents('move').forEach(e => $document.on(e, this._onDragMove))
+    dragEvents('end').forEach(e => $document.on(e, this._onDragEnd))
   }
   _onDragMove = (e) => {
     const btnSize = this._$el.get(0).offsetWidth
@@ -132,8 +134,8 @@ export default class EntryBtn extends Emitter {
     }
 
     this._onDragMove(e)
-    $document.off(drag('move'), this._onDragMove)
-    $document.off(drag('end'), this._onDragEnd)
+    dragEvents('move').forEach(e => $document.off(e, this._onDragMove))
+    dragEvents('end').forEach(e => $document.off(e, this._onDragEnd))
 
     const cfg = this.config
 
@@ -149,7 +151,7 @@ export default class EntryBtn extends Emitter {
   _bindEvent() {
     const $el = this._$el
 
-    $el.on(drag('start'), this._onDragStart)
+    dragEvents('start').forEach(e => $el.on(e, this._onDragStart))
 
     orientation.on('change', () => this._resetPos(true))
     window.addEventListener('resize', () => this._resetPos())
