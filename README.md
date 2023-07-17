@@ -40,7 +40,7 @@ Browse it on your phone: [https://eruda.liriliri.io/](https://eruda.liriliri.io/
 In order to try it for different sites, execute the script below on browser address bar.
 
 ```javascript
-javascript:(function () { var script = document.createElement('script'); script.src="//cdn.jsdelivr.net/npm/eruda"; document.body.appendChild(script); script.onload = function () { eruda.init() } })();
+javascript:(function () { var script = document.createElement('script'); script.src="https://cdn.jsdelivr.net/npm/eruda"; document.body.append(script); script.onload = function () { eruda.init(); } })();
 ```
 
 ## Features
