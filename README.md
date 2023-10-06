@@ -131,6 +131,7 @@ If you want to create a plugin yourself, follow the guides [here](./doc/PLUGIN.m
 
 * [eruda-pixel](https://github.com/Faithree/eruda-pixel): UI pixel restoration tool.
 * [eruda-webpack-plugin](https://github.com/huruji/eruda-webpack-plugin): Eruda webpack plugin.
+* [eruda with vite](https://gist.github.com/n-ce/e4b7660422f0dfa61d3e9ddd73097d28): Instruction on using eruda with vite efficiently.
 
 ## Backers
 
