@@ -84,6 +84,7 @@ const darkThemes = [
   'Atom One Dark',
   'Solarized Dark',
   'Night Owl',
+  'AMOLED',
 ]
 
 export function isDarkTheme(theme) {
@@ -226,5 +227,11 @@ export default {
     '#efefef', '#403F53', '#FAFAFA', '#0C969B', '#c96765',
     '#994cc3', '#aa0982', '#7d818b', '#994cc3', '#546e7a',
     '#994cc3', '#4876d6', '#4876d6', '#637777',
+  ]),
+  'AMOLED': createDarkTheme([
+    '#000000', '#8F93A2', '#FFFFFF', '#68FFAE', '#000000',
+    '#41465b', '#4B526D', '#000000', '#DEFDF7', '#9CFFCF',
+    '#D596FF', '#A76DF7', '#9FC5FF', '#86F3C7', '#8F93A2',
+    '#D596FF', '#8293FF', '#95FFDC', '#000000',
   ]),
 }
