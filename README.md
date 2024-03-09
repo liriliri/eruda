@@ -93,7 +93,7 @@ npm install eruda --save-dev
 Initialize in root file (e.g. main.ts)
 ```
 if (import.meta.env.DEV)
-  import('eruda').then(eruda => eruda.default.init())
+  await import('eruda').then(eruda => eruda.default.init())
 ```
 
 ## Configuration
