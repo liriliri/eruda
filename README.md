@@ -86,6 +86,16 @@ The JavaScript file size is quite huge(about 100kb gzipped) and therefore not su
 })();
 ```
 
+#### Usage with Vite
+```
+npm install eruda --save-dev
+```
+Initialize in root file (e.g. main.ts)
+```
+if (import.meta.env.DEV)
+  import('eruda').then(eruda => eruda.default.init())
+```
+
 ## Configuration
 
 When initialization, a configuration object can be passed in.
