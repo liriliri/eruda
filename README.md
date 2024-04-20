@@ -104,6 +104,26 @@ eruda.init({
     container: el,
     tool: ['console', 'elements']
 });
+
+```
+
+If you are using modern JavaScript tooling, you can dynamically import Eruda in your frontend code:
+
+```javascript
+// Have a flag to determine if you are in dev or product mode,
+// depending on your frontend framework
+if(dev) {
+  // Lazily import Eruda 
+  const eruda = (await import("eruda"));
+
+  // Look up the element where we bind Eruda
+  let el = document.getElementById('eruda');
+
+  // This will make the Eruda's gear button appear
+  eruda.init({
+    "container": el,
+  });
+};
 ```
 
 ## Plugins
