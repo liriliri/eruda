@@ -116,7 +116,8 @@ if(dev) {
   // Lazily import Eruda 
   const eruda = (await import("eruda"));
 
-  // Look up the element where we bind Eruda
+  // Look up the element where we bind Eruda,
+  // usually your frontend framework offers you a shortcut to bind elements
   let el = document.getElementById('eruda');
 
   // This will make the Eruda's gear button appear
