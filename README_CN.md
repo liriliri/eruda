@@ -20,7 +20,7 @@
 [npm-url]: https://npmjs.org/package/eruda
 [jsdelivr-image]: https://img.shields.io/jsdelivr/npm/hm/eruda?style=flat-square
 [jsdelivr-url]: https://www.jsdelivr.com/package/npm/eruda
-[ci-image]: https://img.shields.io/github/actions/workflow/status/liriliri/eruda/main.yml?branch=master&style=flat-square 
+[ci-image]: https://img.shields.io/github/actions/workflow/status/liriliri/eruda/main.yml?branch=master&style=flat-square
 [ci-url]: https://github.com/liriliri/eruda/actions/workflows/main.yml
 [codecov-image]: https://img.shields.io/codecov/c/github/liriliri/eruda?style=flat-square
 [codecov-url]: https://codecov.io/github/liriliri/eruda?branch=master
@@ -107,6 +107,77 @@ eruda.init({
 });
 ```
 
+
+### Vite or Nuxt3
+
+设置仅在开发模式加载
+
+**Vite**
+
+`main.js`
+
+```js
+if (import.meta.env.MODE === 'development') {
+  fetch('https://unpkg.com/eruda@3.0.1/eruda.js')
+    .then(response => response.text())
+    .then(source => {
+      eval(source);
+      eruda.init(); // or window.eruda.init()
+    })
+    .catch(err => {
+      console.log('加载失败')
+      console.log(err)
+    });
+}
+```
+
+**Nuxt3**
+
+1. 添加一个插件 `plugins/eruda.ts`
+
+```js
+export default defineNuxtPlugin((()) => {
+  if (process.client) {
+    if (import.meta.env.VITE_MOBILE_DEBUG) {
+      // 如果你只想在手机端加载，就放开下面的注释
+      // if (window.innerWidth > 768) return
+
+      fetch('https://unpkg.com/eruda@3.0.1/eruda.js')
+        .then(response => response.text())
+        .then(source => {
+          eval(source);
+          window.eruda.init();
+        })
+        .catch(err => {
+            console.log('加载失败')
+            console.log(err)
+        });
+    }
+  }
+})
+```
+
+2. 在环境变量里面，添加一个开关变量控制
+
+`.env.development`
+
+```shell
+VITE_MOBILE_DEBUG = true
+```
+
+3. 修改 `package.json` 加载 .env.xxx 配置文件
+
+`package.json`
+
+```json
+{
+  "scripts": {
+    "build": "nuxt build --dotenv .env.production",
+    "dev": "nuxt dev --dotenv .env.development"
+  },
+}
+```
+
 ## 插件
 
 * [eruda-monitor](https://github.com/liriliri/eruda-monitor): 展示页面的 fps 和内存信息。
@@ -125,6 +196,6 @@ eruda.init({
 * [eruda-android](https://github.com/liriliri/eruda-android): 简单的 Android 浏览器应用，自动加载 eruda。
 * [chii](https://github.com/liriliri/chii)：远程调试工具。
 * [chobitsu](https://github.com/liriliri/chobitsu): Chrome devtools 协议 JavaScript 实现。
-* [licia](https://github.com/liriliri/licia)：Eruda 使用的工具库。 
+* [licia](https://github.com/liriliri/licia)：Eruda 使用的工具库。
 * [luna](https://github.com/liriliri/luna): Eruda 使用的 UI 组件库。
 * [vivy](https://github.com/liriliri/vivy-docs): 主题图生成。

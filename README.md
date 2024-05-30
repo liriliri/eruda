@@ -21,7 +21,7 @@ Console for Mobile Browsers.
 [jsdelivr-image]: https://img.shields.io/jsdelivr/npm/hm/eruda?style=flat-square
 [jsdelivr-url]: https://www.jsdelivr.com/package/npm/eruda
 [ci-image]: https://img.shields.io/github/actions/workflow/status/liriliri/eruda/main.yml?branch=master&style=flat-square
-[ci-url]: https://github.com/liriliri/eruda/actions/workflows/main.yml 
+[ci-url]: https://github.com/liriliri/eruda/actions/workflows/main.yml
 [codecov-image]: https://img.shields.io/codecov/c/github/liriliri/eruda?style=flat-square
 [codecov-url]: https://codecov.io/github/liriliri/eruda?branch=master
 [license-image]: https://img.shields.io/npm/l/eruda?style=flat-square
@@ -85,6 +85,77 @@ The JavaScript file size is quite huge(about 100kb gzipped) and therefore not su
     document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
 })();
 ```
+
+### Vite or Nuxt3
+
+Only load in development mode
+
+**Vite**
+
+`main.js`
+
+```js
+if (import.meta.env.MODE === 'development') {
+  fetch('https://unpkg.com/eruda@3.0.1/eruda.js')
+    .then(response => response.text())
+    .then(source => {
+      eval(source);
+      eruda.init(); // or window.eruda.init()
+    })
+    .catch(err => {
+      console.log('load error')
+      console.log(err)
+    });
+}
+```
+
+**Nuxt3**
+
+1. Add a plugin `plugins/eruda.ts`
+
+```js
+export default defineNuxtPlugin((()) => {
+  if (process.client) {
+    if (import.meta.env.VITE_MOBILE_DEBUG) {
+      // If you only want to display on the mobile end
+      // if (window.innerWidth > 768) return
+
+      fetch('https://unpkg.com/eruda@3.0.1/eruda.js')
+        .then(response => response.text())
+        .then(source => {
+          eval(source);
+          window.eruda.init();
+        })
+        .catch(err => {
+            console.log('load error')
+            console.log(err)
+        });
+    }
+  }
+})
+```
+
+2. Add a switch to the environment configuration file
+
+`.env.development`
+
+```shell
+VITE_MOBILE_DEBUG = true
+```
+
+3. Change `package.json` to load env configuration file
+
+`package.json`
+
+```json
+{
+  "scripts": {
+    "build": "nuxt build --dotenv .env.production",
+    "dev": "nuxt dev --dotenv .env.development"
+  },
+}
+```
+
 
 ## Configuration
 
