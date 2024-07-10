@@ -132,6 +132,7 @@ If you want to create a plugin yourself, follow the guides [here](https://eruda.
 
 * [eruda-pixel](https://github.com/Faithree/eruda-pixel): UI pixel restoration tool.
 * [eruda-webpack-plugin](https://github.com/huruji/eruda-webpack-plugin): Eruda webpack plugin.
+* [eruda-vue-devtools](https://github.com/Zippowxk/vue-devtools-plugin): Eruda Vue-devtools plugin.
 
 ## Backers
 
