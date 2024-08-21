@@ -71,7 +71,7 @@ Add this script to your page.
 It's also available on [jsDelivr](http://www.jsdelivr.com/projects/eruda) and [cdnjs](https://cdnjs.com/libraries/eruda).
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 <script>eruda.init();</script>
 ```
 
