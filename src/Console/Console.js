@@ -121,6 +121,7 @@ export default class Console extends Tool {
   }
   _handleErr = (err) => {
     this._logger.error(err)
+    this.emit('error', err)
   }
   _enableJsExecution(enabled) {
     const $el = this._$el
