@@ -3,7 +3,9 @@
 ## How To Show Eruda Console UI In Mobile Browser
 
 1. Get Eruda JavaScript Library from NPM:
-`npm i eruda`
+```JavaScript
+npm i eruda
+```
 
 2. Include Eruda into your project:
 ```JavaScript
