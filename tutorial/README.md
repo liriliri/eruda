@@ -39,7 +39,9 @@ console.log("Log #3");
 `http://example.com/?eruda=true`
 
 5. Switch on Eruda UI in Browser:
+
 ![Switch on Eruda UI](assets/switch_on_Eruda_UI.jpg)
 
 6. Console logs examples:
+
 ![Logs examples](assets/logs_examples.jpg)
