@@ -28,6 +28,7 @@ let console = eruda.get('console');
 console.config.set('catchGlobalErr', true);
 console.config.set('displayExtraInfo', true);
 
+// Find output of following code in screenshots below
 console.log('Log #1');
 console.error(new Error('Log #2'));
 console.on('log', function (msg) 
