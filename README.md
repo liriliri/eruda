@@ -43,6 +43,10 @@ In order to try it for different sites, execute the script below on browser addr
 javascript:(function () { var script = document.createElement('script'); script.src="https://cdn.jsdelivr.net/npm/eruda"; document.body.append(script); script.onload = function () { eruda.init(); } })();
 ```
 
+## Tutorial
+
+[A Basic Tutorial](tutorial)
+
 ## Features
 
 * [Console](https://eruda.liriliri.io/docs/api.html#console): Display JavaScript logs.
