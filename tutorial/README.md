@@ -3,12 +3,12 @@
 ## How To Show Eruda Console UI In Mobile Browser
 
 1. Get Eruda JavaScript Library from NPM:
-```JavaScript
+```
 npm i eruda
 ```
 
 2. Include Eruda into your project:
-```JavaScript
+```HTML
 <script src="node_modules/eruda/eruda.js"></script>
 ```
 
@@ -39,7 +39,9 @@ console.log("Log #3");
 ```
 
 4. Enable Eruda in visiting Url:
-`http://example.com/?eruda=true`
+```HTML
+http://example.com/?eruda=true
+```
 
 5. Switch on Eruda UI in Browser:
 
