@@ -61,6 +61,12 @@
   }
 }
 
+@media print {
+  #eruda {
+    display: none !important;
+  }
+}
+
 .tag-name-color {
   color: var(--tag-name-color);
 }
@@ -80,3 +86,4 @@
 .string-color {
   color: var(--string-color);
 }
+
