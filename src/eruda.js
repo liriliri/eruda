@@ -37,6 +37,7 @@ export default {
     autoScale = true,
     useShadowDom = true,
     inline = false,
+    hideEntry = false,
     defaults = {},
   } = {}) {
     if (this._isInit) {
@@ -57,6 +58,11 @@ export default {
     if (autoScale) {
       this._autoScale()
     }
+
+    if (hideEntry) {
+      this._entryBtn.hide()
+    }
+
     if (inline) {
       this._entryBtn.hide()
       this._$el.addClass('eruda-inline')
@@ -212,11 +218,11 @@ export default {
         evalCss.container = document.head
         evalCss(
           require('./style/icon.css') +
-            require('luna-console/luna-console.css') +
-            require('luna-object-viewer/luna-object-viewer.css') +
-            require('luna-dom-viewer/luna-dom-viewer.css') +
-            require('luna-text-viewer/luna-text-viewer.css') +
-            require('luna-notification/luna-notification.css')
+          require('luna-console/luna-console.css') +
+          require('luna-object-viewer/luna-object-viewer.css') +
+          require('luna-dom-viewer/luna-dom-viewer.css') +
+          require('luna-text-viewer/luna-text-viewer.css') +
+          require('luna-notification/luna-notification.css')
         )
 
         el = document.createElement('div')
@@ -260,18 +266,18 @@ export default {
 
     evalCss(
       require('./style/reset.scss') +
-        require('luna-object-viewer/luna-object-viewer.css') +
-        require('luna-console/luna-console.css') +
-        require('luna-notification/luna-notification.css') +
-        require('luna-data-grid/luna-data-grid.css') +
-        require('luna-dom-viewer/luna-dom-viewer.css') +
-        require('luna-modal/luna-modal.css') +
-        require('luna-tab/luna-tab.css') +
-        require('luna-text-viewer/luna-text-viewer.css') +
-        require('luna-setting/luna-setting.css') +
-        require('luna-box-model/luna-box-model.css') +
-        require('./style/style.scss') +
-        require('./style/icon.css')
+      require('luna-object-viewer/luna-object-viewer.css') +
+      require('luna-console/luna-console.css') +
+      require('luna-notification/luna-notification.css') +
+      require('luna-data-grid/luna-data-grid.css') +
+      require('luna-dom-viewer/luna-dom-viewer.css') +
+      require('luna-modal/luna-modal.css') +
+      require('luna-tab/luna-tab.css') +
+      require('luna-text-viewer/luna-text-viewer.css') +
+      require('luna-setting/luna-setting.css') +
+      require('luna-box-model/luna-box-model.css') +
+      require('./style/style.scss') +
+      require('./style/icon.css')
     )
   },
   _initEntryBtn() {

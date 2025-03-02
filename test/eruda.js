@@ -70,3 +70,29 @@ describe('devTools', function () {
     })
   })
 })
+
+describe('EntryBtn', function () {
+  describe('hideEntry', function () {
+    it('destroy', function () {
+      eruda.destroy()
+
+      expect($('#eruda')).toHaveLength(0)
+    })
+
+    it('hideEntry', function () {
+      let container = document.createElement('div')
+      container.id = 'eruda'
+      document.body.appendChild(container)
+
+      eruda.init({
+        container: container,
+        tool: [],
+        useShadowDom: false,
+        hideEntry: true
+      })
+
+      let $eruda = $('#eruda')
+      expect($eruda.find('.eruda-entry-btn').css('display')).toBe('none')
+    })
+  })
+})
