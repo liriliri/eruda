@@ -1,4 +1,4 @@
-@import '../style/variable';
+@use '../style/variable' as *;
 
 .search-highlight-block {
   display: inline;

@@ -1,5 +1,5 @@
-@import '../style/variable';
-@import '../style/mixin';
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
 
 #settings {
   @include overflow-auto(y);

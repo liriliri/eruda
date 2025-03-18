@@ -1,6 +1,6 @@
-@import 'variable';
-@import 'mixin';
-@import 'luna';
+@use 'variable' as *;
+@use 'mixin' as *;
+@use 'luna' as *;
 
 .container {
   min-width: 320px;

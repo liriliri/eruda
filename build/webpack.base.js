@@ -87,7 +87,11 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ['css-loader', postcssLoader, 'sass-loader'],
+        use: [
+          'css-loader',
+          postcssLoader,
+          { loader: 'sass-loader', options: { api: 'modern' } },
+        ],
       },
       {
         test: /\.css$/,

@@ -1,4 +1,4 @@
-@import './variable';
+@use './variable' as *;
 
 .luna-console {
   background: var(--background);
