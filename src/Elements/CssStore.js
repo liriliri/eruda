@@ -43,7 +43,7 @@ export default class CssStore {
       try {
         // Started with version 64, Chrome does not allow cross origin script to access this property.
         if (!styleSheet.cssRules) return
-      } catch (e) {
+      } catch {
         return
       }
 
@@ -53,8 +53,9 @@ export default class CssStore {
         // Mobile safari will throw DOM Exception 12 error, need to try catch it.
         try {
           matchesEl = this._elMatchesSel(cssRule.selectorText)
-          /* eslint-disable no-empty */
-        } catch (e) {}
+        } catch {
+          // No op
+        }
 
         if (!matchesEl) return
 

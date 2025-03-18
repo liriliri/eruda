@@ -4,6 +4,7 @@ const clean = require('postcss-clean')
 const webpack = require('webpack')
 const pkg = require('../package.json')
 const path = require('path')
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 process.traceDeprecation = true
 
@@ -34,8 +35,6 @@ module.exports = {
   entry: './src/index',
   resolve: {
     symlinks: false,
-  },
-  resolve: {
     alias: {
       axios: path.resolve(__dirname, '../src/lib/empty.js'),
       micromark: path.resolve(__dirname, '../src/lib/micromark.js'),
@@ -82,7 +81,6 @@ module.exports = {
               ],
             },
           },
-          'eslint-loader',
         ],
       },
       {
@@ -105,5 +103,6 @@ module.exports = {
     new webpack.DefinePlugin({
       VERSION: '"' + pkg.version + '"',
     }),
+    new ESLintPlugin()
   ],
 }

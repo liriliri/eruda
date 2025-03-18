@@ -174,7 +174,7 @@ export default class Storage {
 
         try {
           showSources('object', JSON.parse(val))
-        } catch (e) {
+        } catch {
           showSources('raw', val)
         }
       })

@@ -34,7 +34,6 @@ export function hasSafeArea() {
 }
 
 export function escapeJsonStr(str) {
-  /* eslint-disable quotes */
   return escapeJsStr(str).replace(/\\'/g, "'").replace(/\t/g, '\\t')
 }
 
@@ -59,7 +58,7 @@ export function safeStorage(type, memReplacement) {
     const y = ret.getItem(x)
     ret.removeItem(x)
     if (y !== x) throw new Error()
-  } catch (e) {
+  } catch {
     if (memReplacement) return memStorage
     return
   }
@@ -116,7 +115,7 @@ export function classPrefix(str) {
         }
       })
       return html.stringify(tree)
-    } catch (e) {
+    } catch {
       return processClass(str)
     }
   }
@@ -135,7 +134,7 @@ function traverseTree(tree, handler) {
 }
 
 function processClass(str) {
-  const prefix = `eruda-`
+  const prefix = 'eruda-'
 
   return map(trim(str).split(/\s+/), (singleClass) => {
     if (contain(singleClass, prefix)) {

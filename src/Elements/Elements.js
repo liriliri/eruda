@@ -261,8 +261,9 @@ export default class Elements extends Tool {
     try {
       const { node } = chobitsu.domain('DOM').getNode({ nodeId: backendNodeId })
       this.select(node)
-      /* eslint-disable no-empty */
-    } catch (e) {}
+    } catch {
+      // No op
+    }
   }
   _setNode = (node) => {
     if (node === this._curNode) return

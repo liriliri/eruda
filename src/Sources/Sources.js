@@ -220,8 +220,9 @@ export default class Sources extends Tool {
       if (isStr(val)) {
         val = JSON.parse(val)
       }
-      /* eslint-disable no-empty */
-    } catch (e) {}
+    } catch {
+      // No op
+    }
 
     const objViewer = new LunaObjectViewer(
       this._$el.find('.eruda-json').get(0),

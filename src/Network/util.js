@@ -18,7 +18,6 @@ export function curlStr(request) {
   if (platform === 'windows') {
     platform = 'win'
   }
-  /* eslint-disable */
   let command = []
   const ignoredHeaders = arrToMap([
     'accept-encoding',
@@ -36,7 +35,7 @@ export function curlStr(request) {
       str
         .replace(/\\/g, '\\\\')
         .replace(/"/g, '\\"')
-        .replace(/[^a-zA-Z0-9\s_\-:=+~'\/.',?;()*`&]/g, '^$&')
+        .replace(/[^a-zA-Z0-9\s_\-:=+~'/.',?;()*`&]/g, '^$&')
         .replace(/%(?=[a-zA-Z0-9_])/g, '%^')
         .replace(/\r?\n/g, '^\n\n') +
       encapsChars
@@ -54,14 +53,16 @@ export function curlStr(request) {
       return '\\u' + hexString
     }
 
-    if (/[\0-\x1F\x7F-\x9F!]|\'/.test(str)) {
+    // eslint-disable-next-line no-control-regex
+    if (/[\0-\x1F\x7F-\x9F!]|'/.test(str)) {
       return (
         "$'" +
         str
           .replace(/\\/g, '\\\\')
-          .replace(/\'/g, "\\'")
+          .replace(/'/g, "\\'")
           .replace(/\n/g, '\\n')
           .replace(/\r/g, '\\r')
+          // eslint-disable-next-line no-control-regex
           .replace(/[\0-\x1F\x7F-\x9F!]/g, escapeCharacter) +
         "'"
       )

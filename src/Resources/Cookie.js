@@ -147,7 +147,7 @@ export default class Cookie {
 
         try {
           showSources('object', JSON.parse(val))
-        } catch (e) {
+        } catch {
           showSources('raw', val)
         }
       })
