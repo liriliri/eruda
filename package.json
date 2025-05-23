@@ -53,6 +53,7 @@
     "eslint": "^9.22.0",
     "eslint-webpack-plugin": "^5.0.0",
     "globals": "^16.0.0",
+    "idb": "^8.0.3",
     "jasmine-core": "^2.99.1",
     "jasmine-jquery": "^2.1.1",
     "jquery": "^3.4.1",
