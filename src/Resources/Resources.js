@@ -15,6 +15,7 @@ import map from 'licia/map'
 import { isErudaEl, classPrefix as c } from '../lib/util'
 import evalCss from '../lib/evalCss'
 import Storage from './Storage'
+import IndexedDB from './IndexedDB'
 import Cookie from './Cookie'
 import { setState, getState } from './util'
 
@@ -46,6 +47,7 @@ export default class Resources extends Tool {
       this,
       'session'
     )
+    this._indexedDB = new IndexedDB(this._$indexedDB, container)
     this._cookie = new Cookie(this._$cookie, container)
 
     this._bindEvent()
@@ -55,6 +57,7 @@ export default class Resources extends Tool {
   refresh() {
     return this.refreshLocalStorage()
       .refreshSessionStorage()
+      .refreshIndexedDB()
       .refreshCookie()
       .refreshScript()
       .refreshStylesheet()
@@ -66,6 +69,7 @@ export default class Resources extends Tool {
 
     this._localStorage.destroy()
     this._sessionStorage.destroy()
+    this._indexedDB.destroy()
     this._disableObserver()
     evalCss.remove(this._style)
     this._rmCfg()
@@ -191,6 +195,11 @@ export default class Resources extends Tool {
 
     return this
   }
+  refreshIndexedDB() {
+    this._indexedDB.refresh()
+
+    return this
+  }
   refreshCookie() {
     this._cookie.refresh()
 
@@ -270,6 +279,7 @@ export default class Resources extends Tool {
     $el.html(
       c(`<div class="section local-storage"></div>
       <div class="section session-storage"></div>
+      <div class="section indexed-db"></div>
       <div class="section cookie"></div>
       <div class="section script"></div>
       <div class="section stylesheet"></div>
@@ -278,6 +288,7 @@ export default class Resources extends Tool {
     )
     this._$localStorage = $el.find(c('.local-storage'))
     this._$sessionStorage = $el.find(c('.session-storage'))
+    this._$indexedDB = $el.find(c('.indexed-db'))
     this._$cookie = $el.find(c('.cookie'))
     this._$script = $el.find(c('.script'))
     this._$stylesheet = $el.find(c('.stylesheet'))
