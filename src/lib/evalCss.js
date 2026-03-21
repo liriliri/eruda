@@ -23,6 +23,8 @@ const exports = function (css, container) {
   const el = document.createElement('style')
 
   el.type = 'text/css'
+  const nonce = Array.from(document.querySelectorAll('[nonce]')).map(v => v.nonce).pop()
+  if (typeof nonce === 'string' && nonce.length > 0 ) el.setAttribute('nonce', nonce)
   container.appendChild(el)
 
   const style = { css, el, container }
