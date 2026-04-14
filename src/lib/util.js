@@ -69,9 +69,17 @@ export function safeStorage(type, memReplacement) {
 export function getFileName(url) {
   let ret = last(url.split('/'))
 
-  if (ret === '') {
-    url = new Url(url)
-    ret = url.hostname
+  if (ret === '' || ret.charAt(0) === '?') {
+    const parsedUrl = new Url(url)
+    const pathname = parsedUrl.pathname
+    const segments = pathname.split('/')
+    for (let i = segments.length - 1; i >= 0; i--) {
+      if (segments[i] !== '') {
+        ret = segments[i] + '/' + ret
+        break
+      }
+    }
+    if (ret === '' || ret === '/') ret = parsedUrl.hostname
   }
 
   return ret
