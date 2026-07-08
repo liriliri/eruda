@@ -45,6 +45,7 @@ module.exports = {
       directory: path.join(__dirname, '../test'),
     },
     port: 8080,
+    server: 'https',
   },
   output: {
     path: path.resolve(__dirname, '../dist'),

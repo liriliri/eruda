@@ -4,6 +4,7 @@ import ms from 'licia/ms'
 import each from 'licia/each'
 import map from 'licia/map'
 import Detail from './Detail'
+import Settings from '../Settings/Settings'
 import throttle from 'licia/throttle'
 import { getFileName, classPrefix as c } from '../lib/util'
 import evalCss from '../lib/evalCss'
@@ -80,7 +81,52 @@ export default class Network extends Tool {
       ],
     })
     this._resizeSensor = new ResizeSensor($el.get(0))
+    this._initCfg()
     this._bindEvent()
+  }
+  _initCfg() {
+    const settings = this._container.get('settings')
+    if (!settings) return
+
+    const cfg = (this.config = Settings.createCfg(this.name, {
+      showFullName: false,
+      showCompleteUrl: false,
+    }))
+
+    this._updateRequestOption('show-full-name', cfg.get('showFullName'))
+    this._updateRequestOption('show-complete-url', cfg.get('showCompleteUrl'))
+
+    cfg.on('change', (key, val) => {
+      switch (key) {
+        case 'showFullName':
+          return this._updateRequestOption('show-full-name', val)
+        case 'showCompleteUrl':
+          return this._updateRequestOption('show-complete-url', val)
+      }
+    })
+
+    settings
+      .separator()
+      .text('Network')
+      .switch(cfg, 'showFullName', 'Show Full Name')
+      .switch(cfg, 'showCompleteUrl', 'Show Complete URL')
+      .separator()
+  }
+  _updateRequestOption(className, val) {
+    if (val) {
+      this._$el.addClass(c(className))
+    } else {
+      this._$el.rmClass(c(className))
+    }
+    
+    if (className === 'show-complete-url') {
+      each(this._requests, (request) => {
+        request.name = val ? request.url : getFileName(request.url)
+        request.render()
+      })
+    }
+
+    this._updateDataGridHeight()
   }
   show() {
     super.show()
@@ -105,9 +151,15 @@ export default class Network extends Tool {
       return
     }
 
+    const { url } = params.request
+    let name = getFileName(url)
+    if (this.config && this.config.get('showCompleteUrl')) {
+      name = url
+    }
+
     const request = {
-      name: getFileName(params.request.url),
-      url: params.request.url,
+      name,
+      url,
       status: 'pending',
       type: 'unknown',
       subType: 'unknown',
@@ -138,6 +190,7 @@ export default class Network extends Tool {
         node = this._requestDataGrid.append(data, { selectable: true })
         $(node.container).data('id', params.requestId)
       }
+      
       if (request.hasErr) {
         $(node.container).addClass(c('request-error'))
       }
@@ -355,6 +408,18 @@ export default class Network extends Tool {
     network.off('loadingFinished', this._loadingFinished)
 
     emitter.off(emitter.SCALE, this._updateScale)
+    this._rmCfg()
+  }
+  _rmCfg() {
+    const cfg = this.config
+
+    const settings = this._container.get('settings')
+    if (!settings) return
+
+    settings
+      .remove(cfg, 'showFullName')
+      .remove(cfg, 'showCompleteUrl')
+      .remove('Network')
   }
   _initTpl() {
     const $el = this._$el

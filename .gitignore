@@ -5,4 +5,3 @@ test/lib/
 coverage/
 test/playground.html
 npm-debug.log
-package-lock.json

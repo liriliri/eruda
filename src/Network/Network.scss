@@ -57,6 +57,26 @@
     border-left: none;
     border-right: none;
   }
+  &.show-full-name {
+    .luna-data-grid {
+      .luna-data-grid-node {
+        td:first-child {
+          white-space: normal;
+          word-break: break-all;
+        }
+      }
+    }
+  }
+  &.show-complete-url {
+    .luna-data-grid {
+      .luna-data-grid-node {
+        td:first-child {
+          white-space: normal;
+          word-break: break-all;
+        }
+      }
+    }
+  }
   .detail {
     @include absolute();
     z-index: 10;
@@ -118,16 +138,17 @@
         }
       }
       .response,
-      .data {
+      .data,
+      .payload-raw {
         user-select: text;
         @include overflow-auto(x);
         padding: $padding;
         font-size: $font-size-s;
-        margin: 10px 0;
+        // margin: 10px 0;
         white-space: pre-wrap;
-        border-top: 1px solid var(--border);
+        // border-top: 1px solid var(--border);
         color: var(--foreground);
-        border-bottom: 1px solid var(--border);
+        // border-bottom: 1px solid var(--border);
       }
     }
   }

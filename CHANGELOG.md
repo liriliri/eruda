@@ -1,3 +1,16 @@
+## 3.5.1 (08 Jul 2026)
+
+* chore: switch publish pipeline to npm trusted publishing with OIDC
+* chore: commit package-lock.json and use npm ci in CI
+* chore: bump CI node version to 22
+
+## 3.5.0 (11 Jun 2026)
+
+* feat(network): restructure detail view with General, Query Parameters, Payload, and Response Body sections
+* feat(network): add configurable display options for Full Name and Full URL in request list
+* refactor(network): extract detail rendering into modular helper functions
+* chore: fork as @iulo/eruda
+
 ## 3.4.3 (15 Jun 2025)
 
 * fix: redundant code imported
