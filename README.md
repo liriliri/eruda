@@ -62,7 +62,7 @@ It's also available on [jsDelivr](http://www.jsdelivr.com/projects/eruda) and [c
 For more detailed usage instructions, please read the documentation at [eruda.liriliri.io](https://eruda.liriliri.io/docs/)!
 
 ## Related Projects
-
+* [ConsoleFlow](https://github.com/SANDRO00O/ConsoleFlow-mobile): A lightweight, developer-focused Android web browser that brings desktop-like debugging to mobile.
 * [eruda-android](https://github.com/liriliri/eruda-android): Simple webview with eruda loaded automatically.
 * [chii](https://github.com/liriliri/chii): Remote debugging tool.
 * [chobitsu](https://github.com/liriliri/chobitsu): Chrome devtools protocol JavaScript implementation.
