@@ -10,17 +10,16 @@
     padding-bottom: 0;
   }
   .control {
-    padding: 10px 10px 10px 35px;
+    padding: 10px 88px 10px 40px;
     @include control();
     .icon-clear {
-      padding-right: 0px;
       left: 0;
     }
     .icon-copy {
       right: 0;
     }
     .icon-filter {
-      right: 23px;
+      right: 40px;
     }
     .level {
       cursor: pointer;
@@ -30,7 +29,9 @@
       margin: 0 2px;
       padding: 0 4px;
       line-height: 20px;
-      transition: background-color $anim-duration, color $anim-duration;
+      transition:
+        background-color $anim-duration,
+        color $anim-duration;
       &.active {
         background: var(--highlight);
         color: var(--select-foreground);
@@ -42,7 +43,7 @@
       line-height: 20px;
       max-width: 80px;
       overflow: hidden;
-      right: 55px;
+      right: 88px;
       font-size: $font-size;
       text-overflow: ellipsis;
     }
@@ -96,7 +97,9 @@
         border-right: 1px solid var(--border);
         height: 40px;
         line-height: 40px;
-        transition: background-color $anim-duration, color $anim-duration;
+        transition:
+          background-color $anim-duration,
+          color $anim-duration;
         &:last-child {
           border-right: none;
         }

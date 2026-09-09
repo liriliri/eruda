@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Eruda Network 详情功能验收</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        background: #0c111b;
+        color: #e8edf7;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          radial-gradient(circle at 15% 0%, #243457 0, transparent 34%), #0c111b;
+      }
+      main {
+        width: min(920px, 100%);
+        margin: 0 auto;
+        padding: 20px 16px 48vh;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 24px;
+      }
+      .lead {
+        margin: 0 0 14px;
+        color: #aebbd1;
+        line-height: 1.6;
+      }
+      .meta,
+      .status {
+        padding: 10px 12px;
+        border: 1px solid #33415c;
+        border-radius: 8px;
+        background: rgba(18, 26, 42, 0.88);
+        color: #cbd7eb;
+        line-height: 1.5;
+      }
+      .status {
+        position: sticky;
+        z-index: 2;
+        top: 8px;
+        margin: 12px 0;
+        border-color: #3c5782;
+      }
+      .status.error {
+        border-color: #a84d59;
+        color: #ffc5ca;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 10px;
+      }
+      .card {
+        display: flex;
+        min-height: 154px;
+        flex-direction: column;
+        padding: 14px;
+        border: 1px solid #2c3950;
+        border-radius: 10px;
+        background: rgba(15, 23, 38, 0.94);
+      }
+      .card h2 {
+        margin: 0 0 6px;
+        font-size: 16px;
+      }
+      .card p {
+        flex: 1;
+        margin: 0 0 12px;
+        color: #9faec5;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+      button {
+        width: 100%;
+        min-height: 38px;
+        border: 1px solid #5577ad;
+        border-radius: 7px;
+        color: #f5f8ff;
+        background: #294a7a;
+        font: inherit;
+        cursor: pointer;
+      }
+      button:active {
+        transform: translateY(1px);
+        background: #35619e;
+      }
+      button:disabled {
+        cursor: wait;
+        opacity: 0.55;
+      }
+      code {
+        color: #91d9ff;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Eruda Network 详情功能验收</h1>
+      <p class="lead">
+        统一测试关键词为 <code>needle</code>。打开接口详情后，请从 JSON
+        正文区域起手上下滑动；点击顶部请求体或底部响应体可进入 Sources，再用 ↑ /
+        ↓ 或 Enter / Shift+Enter 定位深层字段。
+      </p>
+      <div class="meta">
+        当前加载：<strong id="version">正在加载…</strong><br />
+        固定入口：<code>/dist/eruda-latest.js</code>
+      </div>
+      <div id="status" class="status">正在初始化 Eruda 与测试接口…</div>
+
+      <section class="grid" aria-label="Network 测试场景">
+        <article class="card">
+          <h2>标准长 JSON 详情</h2>
+          <p>点击顶部请求体，确认它与响应体一样可进入 Sources 对象树。</p>
+          <button type="button" data-action="detail">打开测试详情</button>
+        </article>
+        <article class="card">
+          <h2>Sources 深层筛选</h2>
+          <p>搜索 needle，应只展开命中路径；清空或改词后路径仍保持展开。</p>
+          <button type="button" data-action="sources">打开深层 JSON</button>
+        </article>
+        <article class="card">
+          <h2>真实 GET 请求</h2>
+          <p>带查询参数和 120 行响应；发送后请从 Network 列表点开。</p>
+          <button type="button" data-action="get">发送 GET</button>
+        </article>
+        <article class="card">
+          <h2>真实 POST 请求</h2>
+          <p>带 JSON 请求体、自定义请求头和 201 JSON 响应。</p>
+          <button type="button" data-action="post">发送 POST</button>
+        </article>
+        <article class="card">
+          <h2>超大 JSON</h2>
+          <p>响应超过 130 KB，用于检查 100 KB 显示上限和打开耗时。</p>
+          <button type="button" data-action="huge">发送超大响应</button>
+        </article>
+        <article class="card">
+          <h2>密集关键词</h2>
+          <p>直接构造 400 次匹配，应显示为 1/200+，切换时保持流畅。</p>
+          <button type="button" data-action="dense">打开密集匹配</button>
+        </article>
+        <article class="card">
+          <h2>无效 JSON</h2>
+          <p>声明为 JSON 但内容不完整，应原样显示且不影响详情交互。</p>
+          <button type="button" data-action="invalid">发送无效 JSON</button>
+        </article>
+        <article class="card">
+          <h2>连续请求</h2>
+          <p>并发发送 30 条 GET，检查 Network 列表和详情切换性能。</p>
+          <button type="button" data-action="burst">发送 30 条请求</button>
+        </article>
+        <article class="card">
+          <h2>清空 Network</h2>
+          <p>清理已产生的请求，方便从单一场景重新开始验收。</p>
+          <button type="button" data-action="clear">清空请求</button>
+        </article>
+      </section>
+    </main>
+
+    <script src="/dist/eruda-latest.js"></script>
+    <script>
+      ;(() => {
+        const KEYWORD = 'needle'
+        const API_ACTIONS = ['get', 'post', 'huge', 'invalid', 'burst']
+        const $status = document.getElementById('status')
+        const $buttons = document.querySelectorAll('[data-action]')
+
+        eruda.init({
+          defaults: {
+            displaySize: 55,
+            transparency: 0.96,
+          },
+        })
+        eruda.show('network')
+        eruda.show()
+        document.getElementById('version').textContent =
+          `Eruda ${eruda.version}`
+
+        /** Keep page feedback outside Eruda so request results remain visible. */
+        function setStatus(message, isError = false) {
+          $status.textContent = message
+          $status.classList.toggle('error', isError)
+        }
+
+        function setApiButtonsDisabled(disabled) {
+          for (let i = 0, len = $buttons.length; i < len; i++) {
+            const button = $buttons[i]
+            if (API_ACTIONS.includes(button.dataset.action)) {
+              button.disabled = disabled
+            }
+          }
+        }
+
+        function createRows(count, every = 8) {
+          return Array.from({ length: count }, (_, index) => ({
+            id: index + 1,
+            marker: index % every === 0 ? KEYWORD : 'ordinary-value',
+            description:
+              'Long JSON row ' + (index + 1) + ' for vertical scrolling.',
+            nested: {
+              enabled: index % 2 === 0,
+              tags: ['network', 'detail', 'row-' + (index + 1)],
+            },
+          }))
+        }
+
+        /**
+         * Direct Detail access is intentional on this isolated test page: it
+         * creates deterministic edge cases without depending on server limits.
+         */
+        function openDetail(data) {
+          eruda.show('network')
+          eruda.get('network')._detail.show(data)
+        }
+
+        function openStandardDetail() {
+          openDetail({
+            method: 'POST',
+            url:
+              'https://example.com/api/search?keyword=' +
+              KEYWORD +
+              '&page=1#results',
+            status: 200,
+            data: JSON.stringify({
+              keyword: KEYWORD,
+              filters: { enabled: true, types: ['alpha', 'beta'] },
+              rows: createRows(24, 6),
+            }),
+            reqHeaders: {
+              'Content-Type': 'application/json',
+              'X-Search-Keyword': KEYWORD,
+            },
+            resHeaders: {
+              'Content-Type': 'application/json; charset=utf-8',
+              'X-Eruda-Demo': 'standard-detail',
+            },
+            resTxt: JSON.stringify({
+              ok: true,
+              keyword: KEYWORD,
+              data: { rows: createRows(120, 7) },
+            }),
+            subType: 'json',
+            type: 'xhr',
+          })
+          setStatus('已打开标准长 JSON；现在可测试正文起滑和关键词定位。')
+        }
+
+        function openSourcesSearch() {
+          eruda.get('sources').set('object', {
+            request: {
+              filters: {
+                keyword: KEYWORD,
+                nested: {
+                  targetField: KEYWORD + '-deep-request',
+                },
+              },
+            },
+            response: {
+              groups: createRows(18, 5),
+            },
+            unrelatedBranch: {
+              note: 'This branch should remain collapsed.',
+            },
+          })
+          eruda.show('sources')
+          setStatus(
+            '已打开深层对象；搜索 needle 后检查自动展开、上下定位和保持展开。',
+          )
+        }
+
+        function openDenseDetail() {
+          openDetail({
+            method: 'POST',
+            url: 'https://example.com/api/dense-search',
+            status: 200,
+            data: JSON.stringify({ keyword: KEYWORD }),
+            reqHeaders: { 'Content-Type': 'application/json' },
+            resHeaders: { 'Content-Type': 'application/json' },
+            resTxt: JSON.stringify({
+              matches: Array.from({ length: 400 }, (_, index) => ({
+                index,
+                value: KEYWORD + '-' + (index + 1),
+              })),
+            }),
+            subType: 'json',
+            type: 'xhr',
+          })
+          setStatus('已打开 400 次关键词匹配；搜索 needle 应显示 1/200+。')
+        }
+
+        async function sendRequest(route, options = {}) {
+          const separator = route.includes('?') ? '&' : '?'
+          const url =
+            '/api/network-detail/' + route + separator + 't=' + Date.now()
+          const startedAt = performance.now()
+
+          try {
+            const response = await fetch(url, options)
+            const text = await response.text()
+            const elapsed = Math.round(performance.now() - startedAt)
+            setStatus(
+              (options.method || 'GET') +
+                ' ' +
+                route +
+                ' 完成：HTTP ' +
+                response.status +
+                '，' +
+                text.length +
+                ' 字符，' +
+                elapsed +
+                ' ms。请在 Network 列表点开。',
+            )
+          } catch (error) {
+            setStatus('请求失败：' + error.message, true)
+          }
+        }
+
+        async function sendBurst() {
+          const requests = []
+          for (let i = 0; i < 30; i++) {
+            requests.push(
+              fetch(
+                '/api/network-detail/get?keyword=' +
+                  KEYWORD +
+                  '&batch=' +
+                  i +
+                  '&t=' +
+                  Date.now(),
+              ),
+            )
+          }
+          await Promise.all(requests)
+          setStatus('30 条请求已完成，可连续切换不同详情检查性能。')
+        }
+
+        const actions = {
+          detail: openStandardDetail,
+          sources: openSourcesSearch,
+          get: () =>
+            sendRequest('get?keyword=' + KEYWORD + '&page=1', {
+              headers: { 'X-Eruda-Demo': 'real-get' },
+            }),
+          post: () =>
+            sendRequest('post?keyword=' + KEYWORD, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Eruda-Demo': 'real-post',
+              },
+              body: JSON.stringify({
+                keyword: KEYWORD,
+                filters: { enabled: true },
+                rows: createRows(12, 4),
+              }),
+            }),
+          huge: () => sendRequest('huge?keyword=' + KEYWORD),
+          dense: openDenseDetail,
+          invalid: () => sendRequest('invalid-json'),
+          burst: sendBurst,
+          clear: () => {
+            eruda.get('network').clear()
+            setStatus('Network 请求记录已清空。')
+          },
+        }
+
+        document.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-action]')
+          if (!button) return
+
+          const action = actions[button.dataset.action]
+          if (action) action()
+        })
+
+        async function initializeWorker() {
+          if (!('serviceWorker' in navigator)) {
+            setStatus(
+              '当前浏览器不支持 Service Worker，直接详情仍可测试。',
+              true,
+            )
+            return
+          }
+
+          try {
+            await navigator.serviceWorker.register('/network-detail-sw.js')
+            await navigator.serviceWorker.ready
+            if (!navigator.serviceWorker.controller) {
+              await new Promise((resolve, reject) => {
+                const timeout = setTimeout(() => {
+                  reject(
+                    new Error('Service Worker did not take control in time'),
+                  )
+                }, 3000)
+
+                navigator.serviceWorker.addEventListener(
+                  'controllerchange',
+                  () => {
+                    clearTimeout(timeout)
+                    resolve()
+                  },
+                  { once: true },
+                )
+              })
+            }
+            setApiButtonsDisabled(false)
+            setStatus(
+              '准备完成。可先点击“标准长 JSON 详情”，搜索关键词 needle。',
+            )
+          } catch (error) {
+            setStatus('测试接口初始化失败：' + error.message, true)
+          }
+        }
+
+        setApiButtonsDisabled(true)
+        initializeWorker()
+      })()
+    </script>
+  </body>
+</html>

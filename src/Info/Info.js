@@ -19,6 +19,8 @@ export default class Info extends Tool {
 
     this.name = 'info'
     this._infos = []
+    this._lastLocation = location.href
+    this._locationTimer = null
   }
   init($el, container) {
     super.init($el)
@@ -28,9 +30,27 @@ export default class Info extends Tool {
     this._bindEvent()
   }
   destroy() {
+    this._stopLocationWatcher()
+    this._container.off('show', this._handleContainerShow)
+    this._container.off('hide', this._handleContainerHide)
     super.destroy()
 
     evalCss.remove(this._style)
+  }
+  show() {
+    super.show()
+
+    this._render()
+    if (this._container._isShow) this._startLocationWatcher()
+
+    return this
+  }
+  hide() {
+    super.hide()
+
+    this._stopLocationWatcher()
+
+    return this
   }
   add(name, val) {
     const infos = this._infos
@@ -107,6 +127,9 @@ export default class Info extends Tool {
   _bindEvent() {
     const container = this._container
 
+    container.on('show', this._handleContainerShow)
+    container.on('hide', this._handleContainerHide)
+
     this._$el.on('click', c('.copy'), function () {
       const $li = $(this).parent().parent()
       const name = $li.find(c('.title')).text()
@@ -115,9 +138,41 @@ export default class Info extends Tool {
       container.notify('Copied', { icon: 'success' })
     })
   }
+  _handleContainerShow = () => {
+    if (!this.active) return
+
+    this._render()
+    this._startLocationWatcher()
+  }
+  _handleContainerHide = () => {
+    this._stopLocationWatcher()
+  }
+  /**
+   * History pushState and replaceState do not emit navigation events, so compare
+   * the complete URL while Info is visible without patching host page APIs.
+   */
+  _startLocationWatcher() {
+    this._stopLocationWatcher()
+    this._lastLocation = location.href
+    this._locationTimer = setInterval(() => {
+      const currentLocation = location.href
+      if (currentLocation === this._lastLocation) return
+
+      this._lastLocation = currentLocation
+      this._render()
+    }, LOCATION_UPDATE_INTERVAL)
+  }
+  _stopLocationWatcher() {
+    if (this._locationTimer === null) return
+
+    clearInterval(this._locationTimer)
+    this._locationTimer = null
+  }
   _renderHtml(html) {
     if (html === this._lastHtml) return
     this._lastHtml = html
     this._$el.html(html)
   }
 }
+
+const LOCATION_UPDATE_INTERVAL = 100

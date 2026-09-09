@@ -40,7 +40,7 @@ export default class DevTools extends Emitter {
         displaySize: 80,
         theme: 'System preference',
       },
-      defaults
+      defaults,
     )
 
     this._style = evalCss(require('./DevTools.scss'))
@@ -51,6 +51,8 @@ export default class DevTools extends Emitter {
     this._tools = {}
     this._isResizing = false
     this._resizeTimer = null
+    this._showTimer = null
+    this._hideTimer = null
     this._resizeStartY = 0
     this._resizeStartSize = 0
     this._inline = inline
@@ -64,14 +66,18 @@ export default class DevTools extends Emitter {
     this._bindEvent()
   }
   show() {
+    clearTimeout(this._showTimer)
+    clearTimeout(this._hideTimer)
     this._isShow = true
 
     this._$el.show()
+    if (!this._inline) this._$backdrop.show()
     this._tab.updateSlider()
 
     // Need a delay after show to enable transition effect.
-    setTimeout(() => {
+    this._showTimer = setTimeout(() => {
       this._$el.css('opacity', this._opacity)
+      if (!this._inline) this._$backdrop.css('opacity', 1)
     }, 50)
 
     this.emit('show')
@@ -80,14 +86,20 @@ export default class DevTools extends Emitter {
   }
   hide() {
     if (this._inline) {
-      return
+      return this
     }
 
+    clearTimeout(this._showTimer)
+    clearTimeout(this._hideTimer)
     this._isShow = false
     this.emit('hide')
 
     this._$el.css({ opacity: 0 })
-    setTimeout(() => this._$el.hide(), 300)
+    this._$backdrop.css({ opacity: 0 })
+    this._hideTimer = setTimeout(() => {
+      this._$el.hide()
+      this._$backdrop.hide()
+    }, 300)
 
     return this
   }
@@ -250,10 +262,13 @@ export default class DevTools extends Emitter {
     this._notification.notify(content, options)
   }
   destroy() {
+    clearTimeout(this._showTimer)
+    clearTimeout(this._hideTimer)
     evalCss.remove(this._style)
     this.removeAll()
     this._tab.destroy()
     this._$el.remove()
+    this._$backdrop.remove()
     window.removeEventListener('resize', this._checkSafeArea)
     emitter.off(emitter.SCALE, this._updateTabHeight)
   }
@@ -300,6 +315,7 @@ export default class DevTools extends Emitter {
 
     $container.append(
       c(`
+      <div class="backdrop" role="button" aria-label="Close Eruda"></div>
       <div class="dev-tools">
         <div class="resizer"></div>
         <div class="tab"></div>
@@ -307,9 +323,10 @@ export default class DevTools extends Emitter {
         <div class="notification"></div>
         <div class="modal"></div>
       </div>
-      `)
+      `),
     )
 
+    this._$backdrop = $container.find(c('.backdrop'))
     this._$el = $container.find(c('.dev-tools'))
     this._$tools = this._$el.find(c('.tools'))
   }
@@ -333,7 +350,7 @@ export default class DevTools extends Emitter {
           x: 'center',
           y: 'top',
         },
-      }
+      },
     )
   }
   _initModal() {
@@ -347,6 +364,8 @@ export default class DevTools extends Emitter {
     if (this._inline) {
       $resizer.hide()
     }
+
+    this._$backdrop.on('click', () => this.hide())
 
     const startListener = (e) => {
       e.preventDefault()

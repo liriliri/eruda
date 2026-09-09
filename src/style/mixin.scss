@@ -44,8 +44,12 @@
   [class^='eruda-icon-'],
   [class*=' icon-'] {
     display: inline-block;
-    padding: 10px;
-    font-size: $font-size-l;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
     position: absolute;
     top: 0;
     cursor: pointer;
@@ -70,9 +74,12 @@
     margin-left: 5px;
     float: right;
     color: var(--primary);
-    width: 18px;
-    height: 18px;
-    font-size: $font-size-l;
+    width: 28px;
+    height: 28px;
+    margin-top: -5px;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
     font-weight: normal;
     cursor: pointer;
     transition: color $anim-duration;

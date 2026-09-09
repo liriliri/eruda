@@ -1,8 +1,10 @@
 .container {
   .entry-btn {
     touch-action: none;
-    width: 40px;
+    width: 100px;
     height: 40px;
+    padding: 0 12px;
+    gap: 8px;
     display: flex;
     background: #000;
     opacity: 0.3;
@@ -17,6 +19,11 @@
     &.active,
     &:active {
       opacity: 0.8;
+    }
+    .entry-label {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1;
     }
   }
 }

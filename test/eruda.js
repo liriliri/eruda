@@ -19,6 +19,12 @@ describe('devTools', function () {
 
       let $eruda = $('#eruda')
       expect($eruda.find('.eruda-dev-tools')).toHaveLength(1)
+      expect($eruda.find('.eruda-backdrop')).toHaveLength(1)
+      expect($eruda.find('.eruda-entry-label')).toHaveText('Eruda')
+      expect($eruda.find('.eruda-entry-btn')).toHaveCss({ width: '100px' })
+      expect($eruda.find('.eruda-entry-btn .eruda-icon-tool')).toHaveCss({
+        fontSize: '25px',
+      })
     })
   })
 
@@ -52,12 +58,25 @@ describe('devTools', function () {
     it('show', function () {
       eruda.show()
       expect($('.eruda-dev-tools')).toHaveCss({ display: 'block' })
+      expect($('.eruda-backdrop')).toHaveCss({ display: 'block' })
     })
 
     it('hide', function (done) {
       eruda.hide()
       setTimeout(function () {
         expect($('.eruda-dev-tools')).toBeHidden()
+        expect($('.eruda-backdrop')).toBeHidden()
+        done()
+      }, 500)
+    })
+
+    it('closes when the backdrop is clicked', function (done) {
+      eruda.show()
+      $('.eruda-backdrop').click()
+
+      setTimeout(function () {
+        expect($('.eruda-dev-tools')).toBeHidden()
+        expect($('.eruda-backdrop')).toBeHidden()
         done()
       }, 500)
     })

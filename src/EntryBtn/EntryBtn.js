@@ -69,7 +69,10 @@ export default class EntryBtn extends Emitter {
     const $container = this._$container
 
     $container.append(
-      c('<div class="entry-btn"><span class="icon-tool"></span></div>')
+      c(`<div class="entry-btn" role="button" aria-label="Open Eruda">
+        <span class="icon-tool" aria-hidden="true"></span>
+        <span class="entry-label">Eruda</span>
+      </div>`),
     )
     this._$el = $container.find('.eruda-entry-btn')
   }
@@ -98,7 +101,9 @@ export default class EntryBtn extends Emitter {
     $document.on(pointerEvent('up'), this._onDragEnd)
   }
   _onDragMove = (e) => {
-    const btnSize = this._$el.get(0).offsetWidth
+    const btn = this._$el.get(0)
+    const btnWidth = btn.offsetWidth
+    const btnHeight = btn.offsetHeight
     const maxWidth = this._$container.get(0).offsetWidth
     const maxHeight = this._$container.get(0).offsetHeight
 
@@ -112,13 +117,13 @@ export default class EntryBtn extends Emitter {
     let newY = this._oldY + deltaY
     if (newX < 0) {
       newX = 0
-    } else if (newX > maxWidth - btnSize) {
-      newX = maxWidth - btnSize
+    } else if (newX > maxWidth - btnWidth) {
+      newX = maxWidth - btnWidth
     }
     if (newY < 0) {
       newY = 0
-    } else if (newY > maxHeight - btnSize) {
-      newY = maxHeight - btnSize
+    } else if (newY > maxHeight - btnHeight) {
+      newY = maxHeight - btnHeight
     }
     this._$el.css({
       left: newX,
@@ -166,11 +171,11 @@ export default class EntryBtn extends Emitter {
     this._resetPos()
   }
   _getDefPos() {
-    const minWidth = this._$el.get(0).offsetWidth + 10
+    const entry = this._$el.get(0)
 
     return {
-      x: window.innerWidth - minWidth,
-      y: window.innerHeight - minWidth,
+      x: window.innerWidth - entry.offsetWidth - 10,
+      y: window.innerHeight - entry.offsetHeight - 10,
     }
   }
 }

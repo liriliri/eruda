@@ -7,6 +7,59 @@ describe('info', function () {
       expect($tool.find('.eruda-content').eq(0)).toContainText(location.href)
     })
 
+    it('updates location while info is visible', function () {
+      const originalUrl = location.href
+      const nextUrl = new URL(originalUrl)
+      nextUrl.searchParams.set('eruda-info-route', 'push')
+
+      jasmine.clock().install()
+      eruda.show()
+      eruda.show('info')
+
+      try {
+        history.pushState(null, '', nextUrl.toString())
+        jasmine.clock().tick(101)
+        expect($tool.find('.eruda-content').eq(0)).toContainText(
+          nextUrl.toString()
+        )
+
+        nextUrl.searchParams.set('eruda-info-route', 'replace')
+        nextUrl.hash = 'details'
+        history.replaceState(null, '', nextUrl.toString())
+        jasmine.clock().tick(101)
+        expect($tool.find('.eruda-content').eq(0)).toContainText(
+          nextUrl.toString()
+        )
+      } finally {
+        history.replaceState(null, '', originalUrl)
+        jasmine.clock().tick(101)
+        eruda.hide()
+        expect(tool._locationTimer).toBeNull()
+        jasmine.clock().tick(301)
+        eruda.show('console')
+        jasmine.clock().uninstall()
+      }
+    })
+
+    it('refreshes location when info is shown again', function () {
+      const originalUrl = location.href
+      const nextUrl = new URL(originalUrl)
+      nextUrl.searchParams.set('eruda-info-route', 'reopen')
+
+      eruda.show('console')
+
+      try {
+        history.replaceState(null, '', nextUrl.toString())
+        eruda.show('info')
+        expect($tool.find('.eruda-content').eq(0)).toContainText(
+          nextUrl.toString()
+        )
+      } finally {
+        history.replaceState(null, '', originalUrl)
+        eruda.show('console')
+      }
+    })
+
     it('user agent', function () {
       expect($tool.find('.eruda-content').eq(1)).toContainText(
         navigator.userAgent

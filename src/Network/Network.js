@@ -9,7 +9,7 @@ import { getFileName, classPrefix as c } from '../lib/util'
 import evalCss from '../lib/evalCss'
 import chobitsu from '../lib/chobitsu'
 import emitter from '../lib/emitter'
-import LunaDataGrid from 'luna-data-grid'
+import NetworkDataGrid from './NetworkDataGrid'
 import ResizeSensor from 'licia/ResizeSensor'
 import MediaQuery from 'licia/MediaQuery'
 import { getType } from './util'
@@ -39,43 +39,37 @@ export default class Network extends Tool {
     this._detail = new Detail(this._$detail, container)
     this._splitMediaQuery = new MediaQuery('screen and (min-width: 680px)')
     this._splitMode = this._splitMediaQuery.isMatch()
-    this._requestDataGrid = new LunaDataGrid(this._$requests.get(0), {
+    this._requestDataGrid = new NetworkDataGrid(this._$requests.get(0), {
       columns: [
         {
           id: 'name',
           title: 'Name',
           sortable: true,
-          weight: 30,
+          weight: 45,
         },
         {
           id: 'method',
           title: 'Method',
           sortable: true,
-          weight: 14,
+          weight: 13,
         },
         {
           id: 'status',
           title: 'Status',
           sortable: true,
-          weight: 14,
-        },
-        {
-          id: 'type',
-          title: 'Type',
-          sortable: true,
-          weight: 14,
+          weight: 10,
         },
         {
           id: 'size',
           title: 'Size',
           sortable: true,
-          weight: 14,
+          weight: 16,
         },
         {
           id: 'time',
           title: 'Time',
           sortable: true,
-          weight: 14,
+          weight: 16,
         },
       ],
     })
@@ -127,7 +121,6 @@ export default class Network extends Tool {
         name: request.name,
         method: request.method,
         status: request.status,
-        type: request.subType,
         size: request.size,
         time: request.displayTime,
       }
@@ -241,22 +234,19 @@ export default class Network extends Tool {
             }
           })
         },
-      })
+      }),
     )
 
     this._container.notify('Copied', { icon: 'success' })
   }
   _updateButtons() {
     const $control = this._$control
-    const $showDetail = $control.find(c('.show-detail'))
     const $copyCurl = $control.find(c('.copy-curl'))
     const iconDisabled = c('icon-disabled')
 
-    $showDetail.addClass(iconDisabled)
     $copyCurl.addClass(iconDisabled)
 
     if (this._selectedRequest) {
-      $showDetail.rmClass(iconDisabled)
       $copyCurl.rmClass(iconDisabled)
     }
   }
@@ -281,7 +271,6 @@ export default class Network extends Tool {
 
     $control
       .on('click', c('.clear-request'), () => this.clear())
-      .on('click', c('.show-detail'), this._showDetail)
       .on('click', c('.copy-curl'), this._copyCurl)
       .on('click', c('.record'), this._toggleRecording)
       .on('click', c('.filter'), () => {
@@ -298,19 +287,17 @@ export default class Network extends Tool {
       const request = self._requests[id]
       this._selectedRequest = request
       this._updateButtons()
-      if (this._splitMode) {
-        this._showDetail()
-      }
+      this._showDetail()
     })
 
     requestDataGrid.on('deselect', () => {
       this._selectedRequest = null
       this._updateButtons()
-      this._detail.hide()
+      if (this._$detail.css('display') !== 'none') this._detail.hide()
     })
 
     this._resizeSensor.addListener(
-      throttle(() => this._updateDataGridHeight(), 15)
+      throttle(() => this._updateDataGridHeight(), 15),
     )
 
     this._splitMediaQuery.on('match', () => {
@@ -322,6 +309,8 @@ export default class Network extends Tool {
       this._splitMode = false
     })
     this._detail.on('hide', () => {
+      /** Returning to the list must let the same row be selected again. */
+      if (requestDataGrid.selectedNode) requestDataGrid.selectNode(null)
       if (this._splitMode) {
         this._$network.css('width', '100%')
       }
@@ -363,14 +352,13 @@ export default class Network extends Tool {
         <div class="control">
           <span class="icon-record record recording"></span>
           <span class="icon-clear clear-request"></span>
-          <span class="icon-eye icon-disabled show-detail"></span>
           <span class="icon-copy icon-disabled copy-curl"></span>
           <span class="filter-text"></span>
           <span class="icon-filter filter"></span>
         </div>
         <div class="requests"></div>
       </div>
-      <div class="detail"></div>`)
+      <div class="detail"></div>`),
     )
     this._$network = $el.find(c('.network'))
     this._$detail = $el.find(c('.detail'))

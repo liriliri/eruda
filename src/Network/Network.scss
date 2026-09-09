@@ -14,16 +14,13 @@
       font-size: $font-size;
     }
     .icon-clear {
-      left: 23px;
-    }
-    .icon-eye {
-      right: 0;
+      left: 40px;
     }
     .icon-copy {
-      right: 23px;
+      right: 0;
     }
     .icon-filter {
-      right: 46px;
+      right: 40px;
     }
     .filter-text {
       white-space: nowrap;
@@ -56,15 +53,21 @@
   .luna-data-grid {
     border-left: none;
     border-right: none;
+    td {
+      height: 32px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
   }
   .detail {
     @include absolute();
     z-index: 10;
     display: none;
-    padding-top: 40px;
+    padding-top: 80px;
     background: var(--background);
     .control {
-      padding: 10px 35px;
+      z-index: 2;
+      padding: 10px 40px;
       border-bottom: 1px solid var(--border);
       .url {
         font-size: $font-size-s;
@@ -81,13 +84,117 @@
         left: 0;
         display: none;
       }
-      .icon-copy {
+      .copy-menu-toggle {
         right: 0;
+      }
+      .copy-menu {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        top: 40px;
+        right: 5px;
+        width: 180px;
+        padding: 4px 0;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        background: var(--darker-background);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        font-size: $font-size;
+        line-height: 32px;
+        &.copy-menu-visible {
+          display: block;
+        }
+      }
+      .copy-menu-item {
+        padding: 0 12px;
+        color: var(--foreground);
+        cursor: pointer;
+        white-space: nowrap;
+        &:active {
+          color: var(--select-foreground);
+          background: var(--highlight);
+        }
+        &.copy-menu-item-disabled {
+          opacity: 0.5;
+          cursor: default;
+          &:active {
+            color: var(--foreground);
+            background: transparent;
+          }
+        }
+      }
+    }
+    .detail-search {
+      position: absolute;
+      z-index: 1;
+      top: 40px;
+      left: 0;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 40px;
+      padding: 4px 6px;
+      border-bottom: 1px solid var(--border);
+      background: var(--darker-background);
+      .detail-search-icon {
+        flex: 0 0 22px;
+        color: var(--primary);
+        font-size: $font-size;
+        text-align: center;
+      }
+      .detail-search-input {
+        min-width: 0;
+        height: 32px;
+        flex: 1;
+        user-select: text;
+        padding: 3px 7px;
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        outline: none;
+        color: var(--foreground);
+        background: var(--background);
+        font-family: $font-family;
+        font-size: $font-size-s;
+        &:focus {
+          border-color: var(--accent);
+        }
+      }
+      .detail-search-count {
+        flex: 0 0 42px;
+        margin-left: 4px;
+        color: var(--primary);
+        font-size: $font-size-s;
+        text-align: right;
+        white-space: nowrap;
+      }
+      .detail-search-button {
+        width: 32px;
+        height: 32px;
+        margin-left: 3px;
+        padding: 0;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        color: var(--primary);
+        background: transparent;
+        font-size: 18px;
+        line-height: 30px;
+        cursor: pointer;
+        &:active:not(:disabled) {
+          border-color: var(--border);
+          color: var(--select-foreground);
+          background: var(--highlight);
+        }
+        &:disabled {
+          opacity: 0.4;
+          cursor: default;
+        }
       }
     }
     .http {
       @include overflow-auto(y);
+      overflow-x: hidden;
       height: 100%;
+      overscroll-behavior-y: contain;
       .section {
         border-top: 1px solid var(--border);
         border-bottom: 1px solid var(--border);
@@ -120,14 +227,26 @@
       .response,
       .data {
         user-select: text;
-        @include overflow-auto(x);
         padding: $padding;
         font-size: $font-size-s;
         margin: 10px 0;
         white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
         border-top: 1px solid var(--border);
         color: var(--foreground);
         border-bottom: 1px solid var(--border);
+      }
+      .detail-search-match {
+        user-select: text;
+        border-radius: 2px;
+        color: var(--console-warn-foreground);
+        background: var(--console-warn-background);
+        &.detail-search-match-active {
+          outline: 1px solid var(--accent);
+          color: var(--select-foreground);
+          background: var(--highlight);
+        }
       }
     }
   }
@@ -143,17 +262,14 @@
   #network {
     .network {
       .control {
-        .icon-eye {
-          display: none;
-        }
         .icon-copy {
           right: 0;
         }
         .icon-filter {
-          right: 23px;
+          right: 40px;
         }
         .filter-text {
-          right: 55px;
+          right: 88px;
         }
       }
     }

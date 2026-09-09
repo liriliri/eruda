@@ -5,6 +5,71 @@
   font-size: 0;
   @include overflow-auto(y);
   color: var(--foreground);
+  .source-search {
+    position: sticky;
+    z-index: 2;
+    top: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding: 4px 6px;
+    border-bottom: 1px solid var(--border);
+    background: var(--darker-background);
+    .source-search-icon {
+      flex: 0 0 22px;
+      color: var(--primary);
+      font-size: $font-size;
+      text-align: center;
+    }
+    .source-search-input {
+      min-width: 0;
+      height: 32px;
+      flex: 1;
+      user-select: text;
+      padding: 3px 7px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      outline: none;
+      color: var(--foreground);
+      background: var(--background);
+      font-family: $font-family;
+      font-size: $font-size-s;
+      &:focus {
+        border-color: var(--accent);
+      }
+    }
+    .source-search-count {
+      flex: 0 0 42px;
+      margin-left: 4px;
+      color: var(--primary);
+      font-size: $font-size-s;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .source-search-button {
+      width: 32px;
+      height: 32px;
+      margin-left: 3px;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      color: var(--primary);
+      background: transparent;
+      font-size: 18px;
+      line-height: 30px;
+      cursor: pointer;
+      &:active:not(:disabled) {
+        border-color: var(--border);
+        color: var(--select-foreground);
+        background: var(--highlight);
+      }
+      &:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+    }
+  }
   .code-wrapper,
   .raw-wrapper {
     @include overflow-auto(x);
@@ -56,6 +121,17 @@
     padding: 0 $padding;
     * {
       user-select: text;
+    }
+    .source-search-match {
+      user-select: text;
+      border-radius: 2px;
+      color: var(--console-warn-foreground);
+      background: var(--console-warn-background);
+      &.source-search-match-active {
+        outline: 1px solid var(--accent);
+        color: var(--select-foreground);
+        background: var(--highlight);
+      }
     }
   }
   iframe {

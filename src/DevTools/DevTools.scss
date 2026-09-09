@@ -1,6 +1,15 @@
 @use '../style/variable' as *;
 @use '../style/mixin' as *;
 
+.backdrop {
+  @include absolute();
+  z-index: 499;
+  display: none;
+  background: rgba(0, 0, 0, 0.42);
+  opacity: 0;
+  transition: opacity $anim-duration;
+}
+
 .dev-tools {
   position: absolute;
   width: 100%;
