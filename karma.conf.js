@@ -27,6 +27,7 @@ module.exports = function (config) {
       'test/info.js',
       'test/network.js',
       'test/resources.js',
+      'test/storage.js',
       'test/snippets.js',
       'test/sources.js',
       'test/settings.js',
