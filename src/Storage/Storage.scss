@@ -1,0 +1,109 @@
+@use '../style/variable' as *;
+@use '../style/mixin' as *;
+
+#storage {
+  @include overflow-auto(y);
+  font-size: 14px;
+  .storage {
+    display: flex;
+    min-height: 100%;
+  }
+  .storage-tree {
+    flex: 0 0 34%;
+    max-width: 180px;
+    padding: 8px 0;
+    border-right: 1px solid var(--border);
+  }
+  .storage-tree-item {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    background: transparent;
+    color: var(--foreground);
+    font: inherit;
+    text-align: left;
+    overflow-wrap: anywhere;
+    &.selected {
+      background: var(--darker-background);
+      color: var(--primary);
+    }
+  }
+  .storage-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .storage-title {
+    padding: $padding;
+    line-height: 18px;
+    color: var(--primary);
+    background: var(--darker-background);
+    @include right-btn();
+    .storage-edit {
+      width: 48px;
+      height: 34px;
+      line-height: 32px;
+      font-size: $font-size-s;
+      text-align: center;
+      touch-action: manipulation;
+    }
+  }
+  .storage-editor {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+    label {
+      flex: 1 1 120px;
+      min-width: 0;
+      color: var(--foreground);
+      font-size: $font-size-s;
+    }
+    input,
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 40px;
+      margin-top: 4px;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: var(--background);
+      color: var(--foreground);
+      font: inherit;
+      user-select: text;
+    }
+    textarea {
+      resize: vertical;
+    }
+  }
+  .storage-editor.hidden {
+    display: none;
+  }
+  .storage-editor-actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    button {
+      min-height: 40px;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: var(--darker-background);
+      color: var(--foreground);
+      font: inherit;
+      touch-action: manipulation;
+    }
+    .storage-save {
+      color: var(--primary);
+    }
+  }
+  .storage-grid {
+    overflow: auto;
+  }
+}
+
+.safe-area #storage {
+  @include safe-area(padding-bottom, 10px);
+}

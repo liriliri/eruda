@@ -6,6 +6,7 @@ import Network from './Network/Network'
 import Elements from './Elements/Elements'
 import Snippets from './Snippets/Snippets'
 import Resources from './Resources/Resources'
+import Storage from './Storage/Storage'
 import Info from './Info/Info'
 import Sources from './Sources/Sources'
 import Settings from './Settings/Settings'
@@ -94,6 +95,7 @@ export default {
   Network,
   Sources,
   Resources,
+  Storage,
   Info,
   Snippets,
   Settings,
@@ -293,6 +295,7 @@ export default {
       'elements',
       'network',
       'resources',
+      'storage',
       'sources',
       'info',
       'snippets',

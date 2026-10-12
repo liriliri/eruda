@@ -231,6 +231,13 @@ declare module 'eruda' {
     readonly prototype: Resources
   }
 
+  export interface Storage extends Tool {}
+
+  export interface StorageConstructor {
+    new (): Storage
+    readonly prototype: Storage
+  }
+
   export interface SourcesConfig {
     /**
      * Show Line Numbers
@@ -428,6 +435,7 @@ declare module 'eruda' {
     settings: InstanceType<SettingsConstructor>
     snippets: InstanceType<SnippetsConstructor>
     sources: InstanceType<SourcesConstructor>
+    storage: InstanceType<StorageConstructor>
     entryBtn: InstanceType<EntryBtnConstructor>
   }
 
@@ -504,6 +512,10 @@ declare module 'eruda' {
      * LocalStorage, sessionStorage, cookies, scripts, styleSheets and images.
      */
     Resources: ResourcesConstructor
+    /**
+     * Inspect cookies, Web Storage, IndexedDB and Cache Storage.
+     */
+    Storage: StorageConstructor
     /**
      * Customization for all tools.
      */
